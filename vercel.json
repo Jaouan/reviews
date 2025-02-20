@@ -1,0 +1,23 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "installCommand": "pnpm install",
+    "buildCommand": "pnpm run build",
+    "outputDirectory": "./dist",
+    "github": {
+      "autoJobCancelation": true
+    },
+    "headers": [
+      {
+        "source": "/(.*\\.svg)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000, immutable"
+          }
+        ]
+      }
+    ],
+    "rewrites": [
+      { "source": "/mock-api/v4/merge_requests", "destination": "/demo.mock.json" }
+    ]
+  }

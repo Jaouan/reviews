@@ -12,7 +12,7 @@ export const EndpointsField = ({ register }: EndpointsFieldProps) => (
     </legend>
     <textarea
       className="textarea h-24 w-full"
-      placeholder={`/demo.mock.json\n/api/demo.mock.json`}
+      placeholder={`/mock-api/v4/merge_requests`}
       {...register("endpoints")}
     ></textarea>
     <div className="fieldset-label">
