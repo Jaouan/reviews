@@ -18,4 +18,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+  server: {
+    proxy: {
+      "/mock-api/v4/merge_requests": {
+        target: "http://localhost:5173",
+        rewrite: () => "/demo.mock.json",
+      },
+    },
+  },
 });

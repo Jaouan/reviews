@@ -16,15 +16,15 @@ export const TokensField = ({ register, errors }: TokensFieldProps) => (
         errors?.tokens && "input-error"
       )}
       placeholder={`{
-    "gitlab.example.com": "123456789"
-  }`}
+    "https://gitlab.example.com": "123456789"
+}`}
       {...register("tokens", {
         validate: (value) => !value?.trim() || isValidJson(value),
       })}
     ></textarea>
     <div className="fieldset-label flex-col items-start">
       {errors?.tokens && <div className="text-error block">Invalid json.</div>}
-      Each endpoint on a new line. Ensure CORS is enabled.
+      The key must match the start of the endpoint.
     </div>
   </fieldset>
 );

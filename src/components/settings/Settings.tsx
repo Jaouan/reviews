@@ -1,10 +1,15 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { TbSettings } from "react-icons/tb";
 import { useSettings } from "@/stores";
 import { EndpointsField } from "./EndpointsField";
 import { TokensField } from "./TokensField";
 import { useForm } from "react-hook-form";
 import { FormValues } from "./form-types";
+
+const tokensToString = (tokens: Record<string, string>) =>
+  Object.keys(tokens).length ? JSON.stringify(tokens, null, 2) : "";
+
+const endpointsToString = (endpoints: string[]) => endpoints.join("\n");
 
 export const Settings = () => {
   const { endpoints, tokens, save } = useSettings();
@@ -13,12 +18,19 @@ export const Settings = () => {
     handleSubmit,
     register,
     formState: { errors },
+    setValue,
   } = useForm<FormValues>({
     defaultValues: {
-      endpoints: endpoints.join("\n"),
-      tokens: Object.keys(tokens).length ? JSON.stringify(tokens, null, 2) : "",
+      endpoints: endpointsToString(endpoints),
+      tokens: tokensToString(tokens),
     },
   });
+
+  useEffect(() => {
+    setValue("endpoints", endpointsToString(endpoints));
+    setValue("tokens", tokensToString(tokens));
+  }, [endpoints, tokens]);
+
   const onSubmit = (values: FormValues) => {
     save({
       endpoints: values.endpoints.split("\n").map((str) => str.trim()),

@@ -1,6 +1,8 @@
 # 🔃 Reviews
 
-A simple dashboard for GitLab Merge Requests, deployed here and anywhere you want (including GitLab Pages).
+A simple dashboard for GitLab Merge Requests, deployable anywhere — including GitLab Pages.
+  
+**✨ Also available at [reviews.jaouan.dev](https://reviews.jaouan.dev).**
 
 ## Usage
 ```

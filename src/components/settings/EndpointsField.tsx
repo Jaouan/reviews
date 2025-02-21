@@ -16,7 +16,7 @@ export const EndpointsField = ({ register }: EndpointsFieldProps) => (
       {...register("endpoints")}
     ></textarea>
     <div className="fieldset-label">
-      Each endpoint on a new line. Ensure CORS is enabled.
+      Enter one endpoint per line. Ensure CORS is enabled.
     </div>
   </fieldset>
 );
