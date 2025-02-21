@@ -182,8 +182,8 @@
     "approvals_before_merge": null
   },
   {
-    "id": 2,
-    "iid": 2,
+    "id": 3,
+    "iid": 3,
     "project_id": 2,
     "title": "FOO-124",
     "description": "Lorem ipsum",
@@ -273,7 +273,7 @@
     "approvals_before_merge": null
   },
   {
-    "id": 3,
+    "id": 4,
     "iid": 4,
     "project_id": 3,
     "title": "✨ FOO-789: Add contact link in the navbar of the website",
@@ -364,7 +364,7 @@
     "approvals_before_merge": null
   },
   {
-    "id": 4,
+    "id": 5,
     "iid": 14,
     "project_id": 4,
     "title": "🚑 FOO-456: Prevent crash on close",
