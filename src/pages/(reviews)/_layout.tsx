@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { LuPartyPopper } from "react-icons/lu";
 import { Outlet, useRouteError } from "react-router";
 import { toast } from "react-toastify";
-import { useShallow } from "zustand/shallow";
 
 export const Catch = () => {
   const error = useRouteError();

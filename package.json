@@ -7,10 +7,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint --max-warnings 0",
     "preview": "vite preview",
-    "up": "npx npm-check-updates -u"
+    "up": "npx npm-check-updates -u",
+    "prepare": "husky"
   },
   "dependencies": {
     "@generouted/react-router": "^1.20.0",
@@ -35,6 +37,7 @@
     "eslint": "^9.20.1",
     "eslint-plugin-react-compiler": "^19.0.0-beta-30d8a17-20250209",
     "eslint-plugin-react-hooks": "^5.1.0",
+    "husky": "^9.1.7",
     "tailwindcss": "^4.0.6",
     "typescript": "^5.7.3",
     "vite": "^6.1.0",
