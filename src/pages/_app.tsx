@@ -1,6 +1,7 @@
 import { Error } from "@/components/layout/Error";
 import { Footer } from "@/components/layout/Footer";
-import { NavBar } from "@/components/layout/NavBar";
+import { NavBar } from "@/components/layout/navbar/NavBar";
+import { SettingsModal } from "@/components/settings/SettingsModal";
 import { logger } from "@/shared";
 import { Outlet, useRouteError } from "react-router";
 import { ToastContainer } from "react-toastify";
@@ -22,6 +23,7 @@ export default function App() {
       </main>
       <Footer />
       <ToastContainer />
+      <SettingsModal />
     </>
   );
 }

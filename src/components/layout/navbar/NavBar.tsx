@@ -1,6 +1,7 @@
 import { TbArrowMergeAltLeft } from "react-icons/tb";
-import { Settings } from "../settings/Settings";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { GithubButton } from "./GithubButton";
+import { SettingsButton } from "./SettingsButton";
 
 export const NavBar = () => (
   <header className="sticky top-0 z-10">
@@ -10,7 +11,8 @@ export const NavBar = () => (
         Reviews
       </a>
       <div className="flex gap-2">
-        <Settings />
+        <GithubButton />
+        <SettingsButton />
         <ThemeSwitcher />
       </div>
     </div>
