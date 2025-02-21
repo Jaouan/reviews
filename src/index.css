@@ -1,5 +1,38 @@
 @import "tailwindcss";
+
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark;
   logs: false;
+}
+@plugin "daisyui/theme" {
+  name: "dark";
+  --depth: 0;
+}
+@plugin "daisyui/theme" {
+  name: "light";
+  --depth: 0;
+}
+
+:root {
+  --toastify-color-light: var(--color-base-300);
+  --toastify-color-dark: var(--color-base-300);
+  --toastify-color-info: var(--color-info);
+  --toastify-color-success: var(--color-success);
+  --toastify-color-warning: var(--color-warning);
+  --toastify-color-error: var(--color-error);
+  --toastify-text-color-light: var(--color-base-content);
+  --toastify-text-color-dark: var(--color-base-content);
+  --toastify-text-color-info: var(--color-info-content);
+  --toastify-text-color-success: var(--color-success-content);
+  --toastify-text-color-warning: var(--color-warning-content);
+  --toastify-text-color-error: var(--color-error-content);
+}
+
+.Toastify__close-button {
+  color: var(--color-base-content);
+  opacity: 0.2;
+  transition: 0.3s ease;
+  &:hover {
+    opacity: 0.8;
+  }
 }

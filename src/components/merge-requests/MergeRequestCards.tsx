@@ -2,21 +2,21 @@ import { MergeRequest } from "@/shared";
 import { MergeRequestCard } from "./MergeRequestCard";
 
 export type MergeRequestsCardsProps = {
-  title: string;
+  project: string;
   mergeRequests: MergeRequest[];
 };
 export const MergeRequestsCards = ({
-  title,
+  project,
   mergeRequests,
 }: MergeRequestsCardsProps) => (
-  <article key={title}>
+  <article key={project}>
     <a
       href={mergeRequests[0]?.web_url}
       className="inline-block text-xl font-bold mb-4 mt-8"
     >
-      {title}
+      {project}
     </a>
-    <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+    <div className="flex flex-wrap gap-4">
       {mergeRequests.map((mr) => (
         <MergeRequestCard key={mr.id} mergeRequest={mr} />
       ))}

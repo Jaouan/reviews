@@ -10,7 +10,7 @@ pnpm install
 pnpm dev
 ```
 
-## Stacks
+## Stack
 - [Vite](https://vitejs.dev/)
 - [React](https://react.dev/)
 - [React Hook Form](https://react-hook-form.com/)

@@ -1,4 +1,5 @@
 import { Error } from "@/components/layout/Error";
+import { PageMessage } from "@/components/layout/PageMessage";
 import { logger } from "@/shared";
 import { useMergeRequests, useSettings } from "@/stores";
 import { useEffect } from "react";
@@ -40,45 +41,36 @@ export default function Layout() {
 
   if (!endpoints.length) {
     return (
-      <div className="flex flex-col gap-2 justify-center items-center h-[80vh] text-base-content">
-        <TbSettingsQuestion className="text-[5rem]" />
-        <p className="ml-4 text-base-content/50 text-center">
-          You have no endpoints configured.
-          <div className="mt-2">
-            Go to <strong>settings</strong> to add one or{" "}
-            <button
-              className="btn btn-sm btn-primary"
-              onClick={() => addDemoEndpoints()}
-            >
-              <strong>try the demo</strong>
-            </button>
-          </div>
-        </p>
-      </div>
+      <PageMessage icon={<TbSettingsQuestion />}>
+        You have no endpoints configured.
+        <div className="mt-2">
+          Go to <strong>settings</strong> to add one or{" "}
+          <button
+            className="btn btn-sm btn-primary"
+            onClick={() => addDemoEndpoints()}
+          >
+            <strong>try the demo</strong>
+          </button>
+        </div>
+      </PageMessage>
     );
   }
 
   if (errors?.length && !mergeRequests?.length) {
     return (
-      <div className="flex flex-col gap-2 justify-center items-center h-[80vh] text-base-content">
-        <TbSettingsX className="text-[5rem]" />
-        <p className="ml-4 text-base-content/50 text-center">
-          You have no open merge requests, but some endpoints encountered
-          errors.
-        </p>
-      </div>
+      <PageMessage icon={<TbSettingsX />}>
+        You have no open merge requests, but some endpoints encountered errors.
+      </PageMessage>
     );
   }
 
   if (mergeRequests !== null && !mergeRequests.length) {
     return (
-      <div className="flex flex-col gap-2 justify-center items-center h-[80vh] text-base-content">
-        <LuPartyPopper className="text-[5rem]" />
-        <p className="ml-4 text-base-content/50 text-center">
-          You have no open merge requests.
-        </p>
-      </div>
+      <PageMessage icon={<LuPartyPopper />}>
+        You have no open merge requests.
+      </PageMessage>
     );
   }
+
   return <Outlet />;
 }

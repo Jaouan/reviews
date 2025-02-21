@@ -5,19 +5,17 @@ import { useMergeRequests } from "@/stores";
 export default function MergeRequestCardsPage() {
   const { mergeRequests } = useMergeRequests();
   const mergeRequestsByProject = mergeRequests
-    ? Object.entries(
-        groupBy(mergeRequests, (mr) => mr.references.full.split("!")[0])
-      )
+    ? Object.entries(groupBy(mergeRequests, (mr) => mr.project))
     : [];
 
   if (mergeRequests === null) return <Skeletons />;
 
   return (
-    <section className="px-8 pb-8 gap-8 flex flex-col">
+    <section className="px-8 pb-8 gap-8 flex flex-row flex-wrap">
       {mergeRequestsByProject.map(([project, mergeRequests]) => (
         <MergeRequestsCards
           key={project}
-          title={project}
+          project={project}
           mergeRequests={mergeRequests}
         />
       ))}
@@ -26,20 +24,21 @@ export default function MergeRequestCardsPage() {
 }
 
 const Skeletons = () => (
-  <div className="mt-8 px-8 pb-8 gap-4 flex flex-col">
-    <div className="skeleton h-8 max-w-64"></div>
-    <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-      <div className="skeleton h-32 w-96"></div>
-      <div className="skeleton h-32 w-96"></div>
-      <div className="skeleton h-32 w-96"></div>
-      <div className="skeleton h-32 w-96"></div>
-    </div>
-    <div className="mt-8 skeleton h-8 max-w-64"></div>
-    <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-      <div className="skeleton h-32 w-96"></div>
-      <div className="skeleton h-32 w-96"></div>
-      <div className="skeleton h-32 w-96"></div>
-      <div className="skeleton h-32 w-96"></div>
-    </div>
-  </div>
+  <section className="px-8 pb-8 gap-8 flex flex-row flex-wrap">
+    <article>
+      <span className="block skeleton w-48 h-8 text-xl font-bold mb-4 mt-8"></span>
+      <div className="flex flex-wrap gap-4">
+        <div className="skeleton w-96 h-28"></div>
+        <div className="skeleton w-96 h-28"></div>
+        <div className="skeleton w-96 h-28"></div>
+      </div>
+    </article>
+    <article>
+      <span className="block skeleton w-48 h-8 text-xl font-bold mb-4 mt-8"></span>
+      <div className="flex flex-wrap gap-4">
+        <div className="skeleton w-96 h-28"></div>
+        <div className="skeleton w-96 h-28"></div>
+      </div>
+    </article>
+  </section>
 );

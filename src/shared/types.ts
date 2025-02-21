@@ -1,4 +1,4 @@
-export type MergeRequest = {
+type GitlabMergeRequest = {
   id: number;
   title: string;
   state: string;
@@ -18,6 +18,13 @@ export type MergeRequest = {
   draft: boolean;
   isNew: boolean;
   updatedDaysAgo: number;
+  project: string;
+};
+
+export type MergeRequest = GitlabMergeRequest & {
+  isNew: boolean;
+  updatedDaysAgo: number;
+  project: string;
 };
 
 export type FetchError = {
