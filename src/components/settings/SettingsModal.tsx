@@ -5,6 +5,7 @@ import { TokensField } from "./TokensField";
 import { useForm } from "react-hook-form";
 import { FormValues } from "./form-types";
 import { useEvent } from "@/hooks/useEvent";
+import { VERSION } from "@/constants";
 
 const tokensToString = (tokens: Record<string, string>) =>
   Object.keys(tokens).length ? JSON.stringify(tokens, null, 2) : "";
@@ -54,7 +55,8 @@ export const SettingsModal = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <TokensField register={register} errors={errors} />
           <EndpointsField register={register} />
-          <div className="text-end">
+          <div className="flex justify-between items-end">
+            <span className="text-xs text-base-content/20">v{VERSION}</span>
             <button className="btn btn-primary">Save</button>
           </div>
         </form>
