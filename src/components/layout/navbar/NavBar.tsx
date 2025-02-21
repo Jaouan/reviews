@@ -6,7 +6,7 @@ import { SettingsButton } from "./SettingsButton";
 export const NavBar = () => (
   <header className="sticky top-0 z-10">
     <div className="navbar backdrop-blur-3xl flex justify-between">
-      <a className="btn btn-ghost text-2xl">
+      <a className="btn btn-ghost text-2xl" href="/">
         <TbArrowMergeAltLeft />
         Reviews
       </a>
