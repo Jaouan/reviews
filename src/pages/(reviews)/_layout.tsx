@@ -3,6 +3,7 @@ import { logger } from "@/shared";
 import { useMergeRequests, useSettings } from "@/stores";
 import { useEffect } from "react";
 import { LuPartyPopper } from "react-icons/lu";
+import { TbSettingsQuestion, TbSettingsX } from "react-icons/tb";
 import { Outlet, useRouteError } from "react-router";
 import { toast } from "react-toastify";
 
@@ -39,8 +40,8 @@ export default function Layout() {
 
   if (!endpoints.length) {
     return (
-      <div className="flex flex-col gap-2 justify-center items-center h-screen text-base-content">
-        <LuPartyPopper className="text-[5rem]" />
+      <div className="flex flex-col gap-2 justify-center items-center h-[80vh] text-base-content">
+        <TbSettingsQuestion className="text-[5rem]" />
         <p className="ml-4 text-base-content/50 text-center">
           You have no endpoints configured.
           <div className="mt-2">
@@ -57,9 +58,21 @@ export default function Layout() {
     );
   }
 
+  if (errors?.length && !mergeRequests?.length) {
+    return (
+      <div className="flex flex-col gap-2 justify-center items-center h-[80vh] text-base-content">
+        <TbSettingsX className="text-[5rem]" />
+        <p className="ml-4 text-base-content/50 text-center">
+          You have no open merge requests, but some endpoints encountered
+          errors.
+        </p>
+      </div>
+    );
+  }
+
   if (mergeRequests !== null && !mergeRequests.length) {
     return (
-      <div className="flex flex-col gap-2 justify-center items-center h-screen text-base-content">
+      <div className="flex flex-col gap-2 justify-center items-center h-[80vh] text-base-content">
         <LuPartyPopper className="text-[5rem]" />
         <p className="ml-4 text-base-content/50 text-center">
           You have no open merge requests.
