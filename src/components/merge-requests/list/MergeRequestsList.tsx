@@ -18,7 +18,7 @@ export const MergeRequestsList = ({
             <div className="flex gap-2 justify-between items-center">
               <div className="flex gap-2 flex-wrap">
                 <StateBadges mr={mr} />
-                <BranchBadge mr={mr} />
+                <BranchBadge mr={mr} withProjectName={true} />
               </div>
               <div className="flex flex-wrap justify-end gap-2 items-center">
                 <AuthorBadge mr={mr} />

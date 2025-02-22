@@ -6,9 +6,11 @@ import { AuthorBadge } from "../content/AuthorBadge";
 
 export type MergeRequestCardProps = {
   mergeRequest: MergeRequest;
+  withProjectName?: boolean;
 };
 export const MergeRequestCard = ({
   mergeRequest: mr,
+  withProjectName,
 }: MergeRequestCardProps) => (
   <a
     key={mr.id}
@@ -18,10 +20,12 @@ export const MergeRequestCard = ({
     <div className="card shadow-xs border-1 border-base-300 bg-base-200">
       <div className="card-body p-4">
         <div className="flex justify-between">
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <StateBadges mr={mr} />
           </div>
-          <BranchBadge mr={mr} />
+          <div className="flex flex-wrap">
+            <BranchBadge mr={mr} withProjectName={withProjectName} />
+          </div>
         </div>
         <div className="flex justify-between overflow-hidden">
           <h2 className="text-lg">{mr.title}</h2>

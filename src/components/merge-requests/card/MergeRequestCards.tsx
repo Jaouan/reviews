@@ -1,5 +1,6 @@
 import { MergeRequest } from "@/shared";
 import { MergeRequestCard } from "./MergeRequestCard";
+import { twMerge } from "tailwind-merge";
 
 export type MergeRequestsCardsProps = {
   project?: string;
@@ -18,9 +19,18 @@ export const MergeRequestsCards = ({
         {project}
       </a>
     )}
-    <div className="flex flex-wrap gap-4">
+    <div
+      className={twMerge(
+        "flex flex-wrap gap-4",
+        project ? null : "justify-center"
+      )}
+    >
       {mergeRequests.map((mr) => (
-        <MergeRequestCard key={mr.id} mergeRequest={mr} />
+        <MergeRequestCard
+          key={mr.id}
+          mergeRequest={mr}
+          withProjectName={!project}
+        />
       ))}
     </div>
   </div>
