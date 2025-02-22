@@ -1,4 +1,4 @@
-import { ApiSettings } from "@/shared";
+import { ApiSettings, parseEndpointsFromQuery } from "@/shared";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -13,9 +13,7 @@ export const useSettings = create<MergeRequestsStore>()(
       endpoints: [],
       save: (newApiSettings) =>
         set((state) => ({
-          endpoints:
-            newApiSettings.endpoints?.filter((str) => str?.trim()) ??
-            state.endpoints,
+          endpoints: newApiSettings.endpoints ?? state.endpoints,
           tokens: newApiSettings.tokens ?? state.tokens,
         })),
     }),
@@ -24,3 +22,12 @@ export const useSettings = create<MergeRequestsStore>()(
     }
   )
 );
+
+const loadEndpointsFromQuery = () => {
+  if (window.location.search) {
+    const searchParams = new URLSearchParams(window.location.search);
+    const endpoints = parseEndpointsFromQuery(searchParams.get("endpoints"));
+    if (endpoints?.length) useSettings.setState({ endpoints });
+  }
+};
+loadEndpointsFromQuery();

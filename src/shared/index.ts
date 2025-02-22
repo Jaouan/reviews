@@ -6,3 +6,6 @@ export * from "./group-by/group-by";
 export * from "./json/json";
 export * from "./types";
 export * from "./search/search";
+export * from "./endpoint-pattern/endpoint-pattern";
+export * from "./settings/settings-serialization";
+export * from "./settings/settings-share";

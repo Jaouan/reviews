@@ -9,7 +9,7 @@ export default function MergeRequestCardsPage() {
 
   return (
     <MergeRequestsLayout layout="condensed">
-      <section className="px-8 pb-8 w-full">
+      <section className="px-8 pb-8">
         <MergeRequestsCards mergeRequests={mergeRequests} />
       </section>
     </MergeRequestsLayout>
