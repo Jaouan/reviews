@@ -8,8 +8,8 @@ export type MergeRequestsCardProps = {
 export const MergeRequestCard = ({
   mergeRequest: mr,
 }: MergeRequestsCardProps) => (
-  <a key={mr.id} href={mr.web_url} className="transition-all hover:scale-105">
-    <div className="card w-96 shadow-sm border-1 border-base-300 bg-base-200">
+  <a key={mr.id} href={mr.web_url} className="overflow-hidden transition-all hover:scale-105 w-full sm:w-96">
+    <div className="card shadow-sm border-1 border-base-300 bg-base-200">
       <div className="card-body p-4">
         <div className="flex justify-between">
           <div className="flex gap-2">

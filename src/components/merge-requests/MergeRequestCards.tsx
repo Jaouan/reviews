@@ -9,7 +9,7 @@ export const MergeRequestsCards = ({
   project,
   mergeRequests,
 }: MergeRequestsCardsProps) => (
-  <article key={project}>
+  <article key={project} className="w-full">
     <a
       href={mergeRequests[0]?.web_url}
       className="inline-block text-xl font-bold mb-4 mt-8"
