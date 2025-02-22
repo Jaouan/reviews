@@ -1,15 +1,26 @@
-import { ApiSettings, getDaysAgo, isLessThanHours, logger } from "@/shared";
+import {
+  ApiSettings,
+  expandEndpointPattern,
+  getDaysAgo,
+  isLessThanHours,
+  logger,
+} from "@/shared";
 
-const findToken = (endpoint: string, tokens: Record<string, string>) =>
+export const findToken = (endpoint: string, tokens: Record<string, string>) =>
   Object.entries(tokens).find(([needle]) => endpoint.startsWith(needle))?.[1];
+
+export const extractShortProjectName = (fullReferences: string) =>
+  fullReferences.split("!")[0]?.split("/").pop();
 
 export const fetchMergeRequests = async ({
   endpoints,
   tokens,
 }: ApiSettings) => {
+  const expandedEndpoints = endpoints.flatMap(expandEndpointPattern);
+
   const mergeRequestsResponses = (
     await Promise.all(
-      endpoints.map(async (endpoint) => {
+      expandedEndpoints.map(async (endpoint) => {
         try {
           return {
             mergeRequests: await (
@@ -34,11 +45,12 @@ export const fetchMergeRequests = async ({
     .map((mr) => ({
       ...mr,
       author: mr.author.name?.toLowerCase() ?? mr.author.username,
-      project: mr.references.full.split("!")[0],
+      project: extractShortProjectName(mr.references.full),
       title: mr.title.replace(/Draft: */, ""),
       isNew: isLessThanHours(new Date(mr.updated_at), 8),
       updatedDaysAgo: getDaysAgo(new Date(mr.updated_at)),
-    }));
+    }))
+    .sort((a, b) => b.updated_at.localeCompare(a.updated_at));
 
   const errors = mergeRequestsResponses
     .flatMap((response) => response.errors)
