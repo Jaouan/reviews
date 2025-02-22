@@ -1,4 +1,6 @@
 import { MergeRequest } from "@/shared";
+import { PropsWithClassName } from "@/shared/PropsWithClassName";
+import { twMerge } from "tailwind-merge";
 
 const getBadgeClass = (diffDays: number): string => {
   if (diffDays > 60) return "badge badge-xs badge-neutral";
@@ -17,17 +19,24 @@ const diffDaysString: Record<number, string> = {
 };
 
 export type RelativeDateProps = {
-  mergeRequest: MergeRequest;
-};
+  mr: MergeRequest;
+} & PropsWithClassName;
 export const RelativeDateBadge = ({
-  mergeRequest: { updated_at, updatedDaysAgo },
+  mr: { updated_at, updatedDaysAgo },
+  className,
 }: RelativeDateProps) => {
   return (
     <div
-      className="tooltip tooltip-left"
+      className="flex tooltip tooltip-left"
       data-tip={new Date(updated_at).toLocaleString()}
     >
-      <span className={getBadgeClass(updatedDaysAgo)}>
+      <span
+        className={twMerge(
+          "truncate",
+          getBadgeClass(updatedDaysAgo),
+          className
+        )}
+      >
         {diffDaysString[updatedDaysAgo] ??
           `${updatedDaysAgo} days ago ${getBadgeEmoji(updatedDaysAgo)}`}
       </span>
