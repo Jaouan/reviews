@@ -33,6 +33,7 @@ export const fetchMergeRequests = async ({
     .filter((mr) => mr != null)
     .map((mr) => ({
       ...mr,
+      author: mr.author.name?.toLowerCase() ?? mr.author.username,
       project: mr.references.full.split("!")[0],
       title: mr.title.replace(/Draft: */, ""),
       isNew: isLessThanHours(new Date(mr.updated_at), 8),

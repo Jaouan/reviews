@@ -11,6 +11,9 @@ importers:
       '@generouted/react-router':
         specifier: ^1.20.0
         version: 1.20.0(react-router@7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.1.0(@types/node@22.13.2)(jiti@2.4.2)(lightningcss@1.29.1))
+      lucene-query-parser:
+        specifier: ^1.2.0
+        version: 1.2.0
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1170,6 +1173,9 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lucene-query-parser@1.2.0:
+    resolution: {integrity: sha512-ZWbguSNYKmFEgw7+lfD4t9MKZkH0VlzidFRLaUJO+XnIYWp8MQxJI5ArpVEzLMIApZVT5Qias+dvLGu6ABtNMw==}
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -2576,6 +2582,8 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lucene-query-parser@1.2.0: {}
 
   magic-string@0.30.17:
     dependencies:

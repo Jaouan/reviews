@@ -8,9 +8,6 @@ type GitlabMergeRequest = {
   references: {
     full: string;
   };
-  author: {
-    name: string;
-  };
   source_branch: string;
   target_branch: string;
   blocking_discussions_resolved: boolean;
@@ -25,6 +22,7 @@ export type MergeRequest = GitlabMergeRequest & {
   isNew: boolean;
   updatedDaysAgo: number;
   project: string;
+  author: string;
 };
 
 export type FetchError = {

@@ -7,6 +7,7 @@ import { LuPartyPopper } from "react-icons/lu";
 import { TbSettingsQuestion, TbSettingsX } from "react-icons/tb";
 import { Outlet, useRouteError } from "react-router";
 import { toast } from "react-toastify";
+import { useShallow } from "zustand/shallow";
 
 export const Catch = () => {
   const error = useRouteError();
@@ -18,7 +19,13 @@ export const Pending = () => <></>;
 
 export default function Layout() {
   const { endpoints, tokens, save } = useSettings();
-  const { mergeRequests, errors, refresh } = useMergeRequests();
+  const { allMergeRequests, errors, refresh } = useMergeRequests(
+    useShallow(({ allMergeRequests, errors, refresh }) => ({
+      allMergeRequests,
+      errors,
+      refresh,
+    }))
+  );
 
   useEffect(() => {
     refresh({
@@ -56,7 +63,7 @@ export default function Layout() {
     );
   }
 
-  if (errors?.length && !mergeRequests?.length) {
+  if (errors?.length && !allMergeRequests?.length) {
     return (
       <PageMessage icon={<TbSettingsX />}>
         You have no open merge requests, but some endpoints encountered errors.
@@ -64,7 +71,7 @@ export default function Layout() {
     );
   }
 
-  if (mergeRequests !== null && !mergeRequests.length) {
+  if (allMergeRequests !== null && !allMergeRequests.length) {
     return (
       <PageMessage icon={<LuPartyPopper />}>
         You have no open merge requests.

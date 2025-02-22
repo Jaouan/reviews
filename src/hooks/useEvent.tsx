@@ -1,7 +1,18 @@
 import { useEffect } from "react";
 
-export const useEvent = (name: string, callback: () => void) =>
+export const useEvent = <T extends Event>(
+  name: string,
+  callback: (event: T) => void,
+  deps: unknown[] = []
+) =>
   useEffect(() => {
-    window.addEventListener(name, callback);
-    return () => window.removeEventListener(name, callback);
-  }, [name, callback]);
+    window.addEventListener(
+      name,
+      callback as EventListenerOrEventListenerObject
+    );
+    return () =>
+      window.removeEventListener(
+        name,
+        callback as EventListenerOrEventListenerObject
+      );
+  }, [name, callback, ...deps]);
