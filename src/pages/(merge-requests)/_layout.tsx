@@ -1,5 +1,6 @@
 import { Error } from "@/components/layout/Error";
 import { PageMessage } from "@/components/layout/PageMessage";
+import { useSettingsModal } from "@/components/settings/useSettingsModel";
 import { logger } from "@/shared";
 import { useMergeRequests, useSettings } from "@/stores";
 import { useEffect } from "react";
@@ -18,6 +19,7 @@ export const Catch = () => {
 export const Pending = () => <></>;
 
 export default function Layout() {
+  const { show } = useSettingsModal();
   const { endpoints, tokens, save } = useSettings();
   const { allMergeRequests, errors, refresh } = useMergeRequests(
     useShallow(({ allMergeRequests, errors, refresh }) => ({
@@ -49,14 +51,15 @@ export default function Layout() {
   if (!endpoints.length) {
     return (
       <PageMessage icon={<TbSettingsQuestion />}>
-        You have no endpoints configured.
+        You haven't set up an endpoint yet.
         <div className="mt-2">
-          Go to <strong>settings</strong> to add one or{" "}
-          <button
-            className="btn btn-sm btn-primary"
-            onClick={() => addDemoEndpoints()}
-          >
-            <strong>try the demo</strong>
+          Go to{" "}
+          <button className="btn btn-sm btn-primary font-bold" onClick={show}>
+            settings
+          </button>{" "}
+          to add one, or{" "}
+          <button className="btn btn-sm btn-accent font-bold" onClick={addDemoEndpoints}>
+            try out the demo
           </button>
         </div>
       </PageMessage>
