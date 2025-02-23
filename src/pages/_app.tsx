@@ -4,7 +4,7 @@ import { NavBar } from "@/components/layout/navbar/NavBar";
 import { SettingsModal } from "@/components/settings/SettingsModal";
 import { logger } from "@/shared";
 import { Outlet, useRouteError } from "react-router";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 
 export const Catch = () => {
   const error = useRouteError();
@@ -22,7 +22,7 @@ export default function App() {
         <Outlet />
       </main>
       <Footer />
-      <ToastContainer />
+      <ToastContainer transition={Zoom} style={{ marginTop: "3rem" }} />
       <SettingsModal />
     </>
   );
