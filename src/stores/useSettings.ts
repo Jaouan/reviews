@@ -3,7 +3,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type MergeRequestsStore = ApiSettings & {
-  save: (newApiSettings: Partial<ApiSettings>) => void;
+  overrideEndpoints?: string[] | null;
+  save: (newSettings: Partial<MergeRequestsStore>) => void;
 };
 
 export const useSettings = create<MergeRequestsStore>()(
@@ -11,23 +12,35 @@ export const useSettings = create<MergeRequestsStore>()(
     (set) => ({
       tokens: {},
       endpoints: [],
-      save: (newApiSettings) =>
+      overrideEndpoints: null,
+      save: ({ endpoints, overrideEndpoints, tokens }) =>
         set((state) => ({
-          endpoints: newApiSettings.endpoints ?? state.endpoints,
-          tokens: newApiSettings.tokens ?? state.tokens,
+          endpoints: endpoints ?? state.endpoints,
+          tokens: tokens ?? state.tokens,
+          overrideEndpoints:
+            overrideEndpoints === undefined
+              ? state.overrideEndpoints
+              : overrideEndpoints,
         })),
     }),
     {
       name: "settings",
+      partialize: (state) => {
+        // Do not persist overrideEndpoints.
+        const { overrideEndpoints: _, ...rest } = state;
+        return rest;
+      },
     }
   )
 );
 
-const loadEndpointsFromQuery = () => {
+const loadOverrideEndpointsFromQuery = () => {
   if (window.location.search) {
     const searchParams = new URLSearchParams(window.location.search);
-    const endpoints = parseEndpointsFromQuery(searchParams.get("endpoints"));
-    if (endpoints?.length) useSettings.setState({ endpoints });
+    const overrideEndpoints = parseEndpointsFromQuery(
+      searchParams.get("endpoints")
+    );
+    if (overrideEndpoints?.length) useSettings.setState({ overrideEndpoints });
   }
 };
-loadEndpointsFromQuery();
+loadOverrideEndpointsFromQuery();

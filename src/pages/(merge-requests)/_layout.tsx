@@ -1,8 +1,9 @@
 import { Error } from "@/components/layout/Error";
 import { PageMessage } from "@/components/layout/PageMessage";
 import { useSettingsModal } from "@/components/settings/useSettingsModel";
+import { useRefreshMergeRequests } from "@/hooks/useRefreshMergeRequests";
 import { logger } from "@/shared";
-import { useMergeRequests, useSettings } from "@/stores";
+import { useSettings } from "@/stores";
 import { useEffect } from "react";
 import { LuPartyPopper } from "react-icons/lu";
 import { TbSettingsQuestion, TbSettingsX } from "react-icons/tb";
@@ -16,31 +17,10 @@ export const Catch = () => {
   return <Error />;
 };
 
-export const Pending = () => <></>;
-
 export default function Layout() {
   const { show } = useSettingsModal();
-  const { endpoints, tokens, save } = useSettings();
-  const { allMergeRequests, errors, refresh } = useMergeRequests(
-    useShallow(({ allMergeRequests, errors, refresh }) => ({
-      allMergeRequests,
-      errors,
-      refresh,
-    }))
-  );
-
-  useEffect(() => {
-    refresh({
-      endpoints,
-      tokens,
-    });
-  }, [endpoints, tokens]);
-
-  useEffect(() => {
-    errors?.forEach((error) =>
-      toast.error(`Unable to fetch ${error.endpoint ?? "endpoint"}`)
-    );
-  }, [errors]);
+  const save = useSettings(useShallow(({ save }) => save));
+  const { noEndpoints, errors, noMergeRequests } = useRefreshMergeRequests();
 
   const addDemoEndpoints = () => {
     save({
@@ -48,7 +28,13 @@ export default function Layout() {
     });
   };
 
-  if (!endpoints.length) {
+  useEffect(() => {
+    errors?.forEach((error) =>
+      toast.error(`Unable to fetch ${error.endpoint ?? "endpoint"}`)
+    );
+  }, [errors]);
+
+  if (noEndpoints) {
     return (
       <PageMessage icon={<TbSettingsQuestion />}>
         You haven't set up an endpoint yet.
@@ -58,7 +44,10 @@ export default function Layout() {
             settings
           </button>{" "}
           to add one, or{" "}
-          <button className="btn btn-sm btn-accent font-bold" onClick={addDemoEndpoints}>
+          <button
+            className="btn btn-sm btn-accent font-bold"
+            onClick={addDemoEndpoints}
+          >
             try out the demo
           </button>
         </div>
@@ -66,7 +55,7 @@ export default function Layout() {
     );
   }
 
-  if (errors?.length && !allMergeRequests?.length) {
+  if (errors?.length && noMergeRequests) {
     return (
       <PageMessage icon={<TbSettingsX />}>
         You have no open merge requests, but some endpoints encountered errors.
@@ -74,7 +63,7 @@ export default function Layout() {
     );
   }
 
-  if (allMergeRequests !== null && !allMergeRequests.length) {
+  if (noMergeRequests) {
     return (
       <PageMessage icon={<LuPartyPopper />}>
         You have no open merge requests.

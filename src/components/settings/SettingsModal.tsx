@@ -14,7 +14,7 @@ const tokensToString = (tokens: Record<string, string>) =>
 const endpointsToString = (endpoints: string[]) => endpoints.join("\n");
 
 export const SettingsModal = () => {
-  const { endpoints, tokens, save } = useSettings();
+  const { endpoints, overrideEndpoints, tokens, save } = useSettings();
   const modalRef = useRef<HTMLDialogElement>(null);
   const [copied, setCopied] = useState(false);
 
@@ -56,6 +56,15 @@ export const SettingsModal = () => {
     setCopied(true);
   };
 
+  const saveOverride = () => {
+    if (!overrideEndpoints) return;
+    save({
+      endpoints: overrideEndpoints,
+      overrideEndpoints: null,
+    });
+    modalRef.current?.close();
+  };
+
   return (
     <dialog ref={modalRef} className="modal">
       <div className="modal-box max-w-150">
@@ -67,7 +76,11 @@ export const SettingsModal = () => {
         <h3 className="font-bold text-xl mb-4">Settings</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TokensField register={register} errors={errors} />
-          <EndpointsField register={register} />
+          <EndpointsField
+            register={register}
+            overriden={!!overrideEndpoints}
+            saveOverride={saveOverride}
+          />
           <div className="flex justify-between items-end">
             <span className="text-xs text-base-content/20">v{VERSION}</span>
             <div className="flex gap-2">
