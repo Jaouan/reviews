@@ -22,7 +22,7 @@ export const TokensField = ({ register, errors }: TokensFieldProps) => (
         validate: (value) => !value?.trim() || isValidJson(value),
       })}
     ></textarea>
-    <div className="fieldset-label flex-col items-start">
+    <div className="fieldset-label flex-col items-start text-[0.6rem]">
       {errors?.tokens && <div className="text-error block">Invalid json.</div>}
       The key must match the start of the endpoint.
     </div>

@@ -15,8 +15,10 @@ export const EndpointsField = ({ register }: EndpointsFieldProps) => (
       placeholder={`/api/v4/merge_requests\n/api/v4/projects/{1,2,3}/merge_requests`}
       {...register("endpoints")}
     ></textarea>
-    <div className="fieldset-label">
-      Enter one endpoint per line. Ensure CORS is enabled.
+    <div className="fieldset-label text-[0.6rem]">
+      Enter one endpoint per line. Define multiple endpoints in one line by
+      enclosing variable parameters with {"{x,y}"}.<br />
+      Ensure CORS is enabled.
     </div>
   </fieldset>
 );
