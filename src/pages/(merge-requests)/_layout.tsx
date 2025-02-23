@@ -36,7 +36,7 @@ export default function Layout() {
 
   useEffect(() => {
     errors?.forEach((error) =>
-      toast.error(`Unable to fetch ${error.endpoint ?? "endpoints"}`)
+      toast.error(`Unable to fetch ${error.endpoint ?? "endpoint"}`)
     );
   }, [errors]);
 

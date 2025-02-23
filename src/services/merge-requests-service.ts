@@ -5,6 +5,7 @@ import {
   isLessThanHours,
   logger,
 } from "@/shared";
+import { extractIssueRef } from "@/shared/issue/extract-issue";
 
 export const findToken = (endpoint: string, tokens: Record<string, string>) =>
   Object.entries(tokens).find(([needle]) => endpoint.startsWith(needle))?.[1];
@@ -49,6 +50,7 @@ export const fetchMergeRequests = async ({
       title: mr.title.replace(/Draft: */, ""),
       isNew: isLessThanHours(new Date(mr.updated_at), 8),
       updatedDaysAgo: getDaysAgo(new Date(mr.updated_at)),
+      issue: extractIssueRef(mr.title),
     }))
     .sort((a, b) => b.updated_at.localeCompare(a.updated_at));
 

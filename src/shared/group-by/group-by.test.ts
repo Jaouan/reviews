@@ -44,4 +44,10 @@ describe("groupBy", () => {
       false: [false, false],
     });
   });
+  it("should handle undefined", () => {
+    const data = [{}] as { unknown: string }[];
+    const result = groupBy(data, (val) => val.unknown);
+
+    expect(result).toEqual({ undefined: [{}] });
+  });
 });

@@ -3,33 +3,39 @@ import { MergeRequestCard } from "./MergeRequestCard";
 import { twMerge } from "tailwind-merge";
 
 export type MergeRequestsCardsProps = {
-  project?: string;
   mergeRequests: MergeRequest[];
+  group?: string;
+  groupClassName?: string;
+  withProjectName?: boolean;
 };
 export const MergeRequestsCards = ({
-  project,
+  group,
   mergeRequests,
+  withProjectName,
+  groupClassName,
 }: MergeRequestsCardsProps) => (
-  <div key={project} className="w-full">
-    {project && (
-      <a
-        href={mergeRequests[0]?.web_url}
-        className="transition-all inline-block text-sm opacity-50 hover:opacity-100 tracking-wide mb-4"
+  <div key={group} className="w-full">
+    {group && (
+      <span
+        className={twMerge(
+          "transition-all inline-block text-sm opacity-50 hover:opacity-100 tracking-wide mb-4",
+          groupClassName
+        )}
       >
-        {project}
-      </a>
+        {group === "undefined" || group === "null" ? "Others" : group}
+      </span>
     )}
     <div
       className={twMerge(
         "flex flex-wrap gap-4",
-        project ? null : "justify-center"
+        group ? null : "justify-center"
       )}
     >
       {mergeRequests.map((mr) => (
         <MergeRequestCard
           key={mr.id}
           mergeRequest={mr}
-          withProjectName={!project}
+          withProjectName={withProjectName}
         />
       ))}
     </div>

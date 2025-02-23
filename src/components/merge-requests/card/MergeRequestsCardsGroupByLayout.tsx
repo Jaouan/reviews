@@ -1,30 +1,48 @@
 import { MergeRequestsCards } from "@/components/merge-requests/card/MergeRequestCards";
-import { MergeRequestsLayout } from "@/components/merge-requests/MergeRequestsLayout";
-import { groupBy } from "@/shared";
+import {
+  Layout,
+  MergeRequestsLayout,
+} from "@/components/merge-requests/MergeRequestsLayout";
+import { groupBy, MergeRequest } from "@/shared";
 import { useMergeRequests } from "@/stores";
 
-export default function MergeRequestCardsPage() {
+export type MergeRequestsCardsGroupByLayoutProps = {
+  layout: Layout;
+  groupByKey: {
+    [K in keyof MergeRequest]: MergeRequest[K] extends string ? K : never;
+  }[keyof MergeRequest];
+  groupClassName?: string;
+  withProjectName?: boolean;
+};
+export const MergeRequestsCardsGroupByLayout = ({
+  layout,
+  groupByKey,
+  groupClassName,
+  withProjectName,
+}: MergeRequestsCardsGroupByLayoutProps) => {
   const { mergeRequests } = useMergeRequests();
-  const mergeRequestsByProject = mergeRequests
-    ? Object.entries(groupBy(mergeRequests, (mr) => mr.project))
+  const mergeRequestsByGroup = mergeRequests
+    ? Object.entries(groupBy(mergeRequests, (mr) => mr[groupByKey]))
     : [];
 
   if (mergeRequests === null) return <Skeletons />;
 
   return (
-    <MergeRequestsLayout layout="">
+    <MergeRequestsLayout layout={layout}>
       <section className="transition-all px-4 sm:px-8 pb-8 gap-8 flex flex-row flex-wrap">
-        {mergeRequestsByProject.map(([project, mergeRequests]) => (
+        {mergeRequestsByGroup.map(([group, mergeRequests]) => (
           <MergeRequestsCards
-            key={project}
-            project={project}
+            key={group}
+            group={group}
+            groupClassName={groupClassName}
             mergeRequests={mergeRequests}
+            withProjectName={withProjectName}
           />
         ))}
       </section>
     </MergeRequestsLayout>
   );
-}
+};
 
 const Skeletons = () => (
   <MergeRequestsLayout layout="">

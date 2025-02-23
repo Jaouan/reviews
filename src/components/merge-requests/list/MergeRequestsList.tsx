@@ -12,7 +12,7 @@ export const MergeRequestsList = ({
 }: MergeRequestsListProps) => (
   <ul className="list">
     {mergeRequests.map((mr) => (
-      <a href={mr.web_url}>
+      <a key={mr.id} href={mr.web_url}>
         <li className="list-row transition-all hover:bg-base-200 rounded-none sm:rounded-box">
           <div className="list-col-grow flex flex-col gap-1">
             <div className="flex gap-2 justify-between items-center">

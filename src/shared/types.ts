@@ -23,6 +23,7 @@ export type MergeRequest = GitlabMergeRequest & {
   updatedDaysAgo: number;
   project: string;
   author: string;
+  issue: string;
 };
 
 export type FetchError = {

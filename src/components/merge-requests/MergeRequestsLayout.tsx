@@ -2,12 +2,15 @@ import { useMergeRequests } from "@/stores";
 import { JSX, PropsWithChildren } from "react";
 import { BiGhost } from "react-icons/bi";
 import { HiViewList } from "react-icons/hi";
-import { TbGridDots, TbLayoutGrid } from "react-icons/tb";
+import { TbLayoutGrid } from "react-icons/tb";
 import { Link } from "react-router";
 import { twMerge } from "tailwind-merge";
 import { SearchField } from "./search/SearchField";
+import { FaRegUser } from "react-icons/fa";
+import { LuFolderGit } from "react-icons/lu";
+import { LiaJira } from "react-icons/lia";
 
-type Layout = "" | "by-issue" | "condensed" | "list";
+export type Layout = "" | "by-issue" | "by-author" | "condensed" | "list";
 
 type JoinItemProps = {
   currentLayout?: Layout;
@@ -44,18 +47,25 @@ export const MergeRequestsLayout = ({
         <SearchField />
         <div className="join">
           <JoinItem
-            icon={<TbLayoutGrid />}
+            icon={<LuFolderGit />}
             currentLayout={layout}
             itemLayout=""
-            tip="Group by project"
+            tip="By project"
           />
-          {/*<JoinItem
-        icon={<FaJira />}
-        currentLayout={layout}
-        itemLayout="by-issue"
-      />*/}
           <JoinItem
-            icon={<TbGridDots />}
+            icon={<LiaJira />}
+            currentLayout={layout}
+            itemLayout="by-issue"
+            tip="By issue"
+          />
+          <JoinItem
+            icon={<FaRegUser />}
+            currentLayout={layout}
+            itemLayout="by-author"
+            tip="By author"
+          />
+          <JoinItem
+            icon={<TbLayoutGrid />}
             currentLayout={layout}
             itemLayout="condensed"
             tip="Condensed"
