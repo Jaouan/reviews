@@ -23,6 +23,7 @@ export const useMergeRequests = create<MergeRequestsStore>((set, get) => ({
   search: (term: string) => {
     if (!term) {
       set((state) => ({
+        searchTerm: null,
         mergeRequests: state.allMergeRequests,
       }));
       return;
