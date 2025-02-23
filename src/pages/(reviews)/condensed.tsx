@@ -9,7 +9,7 @@ export default function MergeRequestCardsPage() {
 
   return (
     <MergeRequestsLayout layout="condensed">
-      <section className="px-8 pb-8">
+      <section className="transition-all px-8 pb-8">
         <MergeRequestsCards mergeRequests={mergeRequests} />
       </section>
     </MergeRequestsLayout>
@@ -18,15 +18,16 @@ export default function MergeRequestCardsPage() {
 
 const Skeletons = () => (
   <MergeRequestsLayout layout="condensed">
-    <section className="px-8 pb-8 gap-8 flex flex-row flex-wrap">
+    <section className="transition-all px-4 sm:px-8 pb-8">
       <article>
-        <div className="flex flex-wrap gap-4">
-          <div className="skeleton w-96 h-28"></div>
-          <div className="skeleton w-96 h-28"></div>
-          <div className="skeleton w-96 h-28"></div>
-          <div className="skeleton w-96 h-28"></div>
-          <div className="skeleton w-96 h-28"></div>
-          <div className="skeleton w-96 h-28"></div>
+        <div className="flex flex-wrap justify-center gap-4">
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
         </div>
       </article>
     </section>

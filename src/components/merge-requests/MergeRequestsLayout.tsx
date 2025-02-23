@@ -69,7 +69,7 @@ export const MergeRequestsLayout = ({
         </div>
       </div>
       {children}
-      {!mergeRequests?.length && (
+      {mergeRequests && !mergeRequests.length && (
         <div className="flex flex-col justify-center items-center m-8 opacity-50">
           <BiGhost className="text-4xl animate-bounce" />
           <div>Nothing.</div>

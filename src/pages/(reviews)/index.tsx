@@ -13,7 +13,7 @@ export default function MergeRequestCardsPage() {
 
   return (
     <MergeRequestsLayout layout="">
-      <section className="px-8 pb-8 gap-8 flex flex-row flex-wrap">
+      <section className="transition-all px-4 sm:px-8 pb-8 gap-8 flex flex-row flex-wrap">
         {mergeRequestsByProject.map(([project, mergeRequests]) => (
           <MergeRequestsCards
             key={project}
@@ -28,20 +28,21 @@ export default function MergeRequestCardsPage() {
 
 const Skeletons = () => (
   <MergeRequestsLayout layout="">
-    <section className="px-8 pb-8 gap-8 flex flex-row flex-wrap">
-      <article>
-        <span className="block skeleton w-48 h-8 text-xl font-bold mb-4 mt-8"></span>
+    <section className="transition-all px-4 sm:px-8 pb-8 gap-8 w-full flex flex-row flex-wrap">
+      <article className="w-full">
+        <div className="skeleton w-48 h-8 mb-4"></div>
         <div className="flex flex-wrap gap-4">
-          <div className="skeleton w-96 h-28"></div>
-          <div className="skeleton w-96 h-28"></div>
-          <div className="skeleton w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
         </div>
       </article>
-      <article>
-        <span className="block skeleton w-48 h-8 text-xl font-bold mb-4 mt-8"></span>
+      <article className="w-full">
+        <div className="skeleton w-48 h-8 mb-4"></div>
         <div className="flex flex-wrap gap-4">
-          <div className="skeleton w-96 h-28"></div>
-          <div className="skeleton w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
+          <div className="transition-all skeleton w-full sm:w-96 h-28"></div>
         </div>
       </article>
     </section>
