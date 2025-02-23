@@ -8,7 +8,7 @@ type TokensFieldProps = {
   errors?: FieldErrors<FormValues>;
 };
 export const TokensField = ({ register, errors }: TokensFieldProps) => (
-  <fieldset className="fieldset">
+  <fieldset className="fieldset flex flex-col">
     <legend className="fieldset-legend text-base">Tokens by endpoint:</legend>
     <textarea
       className={twMerge(
@@ -22,7 +22,7 @@ export const TokensField = ({ register, errors }: TokensFieldProps) => (
         validate: (value) => !value?.trim() || isValidJson(value),
       })}
     ></textarea>
-    <div className="fieldset-label flex-col items-start text-[0.6rem]">
+    <div className="fieldset-label flex flex-col items-start text-[0.6rem]">
       {errors?.tokens && <div className="text-error block">Invalid json.</div>}
       The key must match the start of the endpoint.
     </div>
