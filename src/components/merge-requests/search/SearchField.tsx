@@ -2,9 +2,27 @@ import { useEvent } from "@/hooks/useEvent";
 import { isMac } from "@/shared/is-mac";
 import { useMergeRequests } from "@/stores";
 import { useEffect, useRef, useState } from "react";
+import { IoIosHelpCircleOutline } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
 import { useShallow } from "zustand/shallow";
+
+const searchFields = [
+  "title",
+  "state",
+  "author",
+  "project",
+  "issue",
+  "draft",
+  "created_at",
+  "updated_at",
+  "web_url",
+  "source_branch",
+  "target_branch",
+  "blocking_discussions_resolved",
+  "has_conflicts",
+];
+const operators = [":", ":<", ":<=", ":>", ":>="];
 
 export const SearchField = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,34 +66,65 @@ export const SearchField = () => {
   );
 
   return (
-    <label
-      className={twMerge(
-        "transition-all input input-sm bg-base-200 border-base-200 w-8 p-1 justify-center items-center focus-within:w-80 max-w-full",
-        searchTerm && "w-80",
-        fullWidth ? "border-base-300" : "cursor-pointer p-0"
-      )}
-    >
-      <IoSearch
-        className={twMerge("text-lg opacity-50", fullWidth ? null : "ml-2")}
-      />
-
-      <input
-        ref={inputRef}
-        type="text"
-        className="grow w-0"
-        placeholder={`something AND author:"John Doe"`}
-        onChange={onChange}
-        value={searchTerm}
-      />
-      <span
+    <>
+      <div
         className={twMerge(
-          "transition-a flex gap-1 opacity-30",
-          fullWidth ? null : "hidden"
+          "z-10 transition-all hidden sm:flex me-1 tooltip-bottom",
+          isFocused ? "opacity-30 hover:opacity-100 tooltip" : "opacity-0"
         )}
       >
-        <kbd className="kbd kbd-sm">{metaKey}</kbd>
-        <kbd className="kbd kbd-sm">K</kbd>
-      </span>
-    </label>
+        {isFocused && (
+          <div className="tooltip-content flex justify-start text-left">
+            <div className="p-2 flex flex-col gap-2">
+              <div>
+                <span className="opacity-60">Fields:</span>
+                <ul className="*:ms-8 list-disc">
+                  {searchFields.map((field) => (
+                    <li key={field}>{field}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <span className="opacity-60">Operator:</span> AND, OR
+              </div>
+              <div>
+                <span className="opacity-60">Comparison:</span>{" "}
+                {operators.join(", ")}
+              </div>
+            </div>
+          </div>
+        )}
+        <IoIosHelpCircleOutline />
+      </div>
+      <label
+        className={twMerge(
+          "transition-all input input-sm bg-base-200 border-base-200 w-8 p-1 justify-center items-center focus-within:w-80 max-w-full",
+          searchTerm && "w-80",
+          fullWidth ? "border-base-300" : "cursor-pointer p-0"
+        )}
+      >
+        <IoSearch
+          className={twMerge("text-lg opacity-50", fullWidth ? null : "ml-2")}
+        />
+
+        <input
+          ref={inputRef}
+          type="text"
+          className="grow w-0"
+          placeholder={`something AND author:"John Doe"`}
+          onChange={onChange}
+          value={searchTerm}
+        />
+        <span
+          className={twMerge(
+            "transition-a flex gap-1 opacity-30",
+            fullWidth ? null : "hidden"
+          )}
+        >
+          <kbd className="kbd kbd-sm">{metaKey}</kbd>
+          <kbd className="kbd kbd-sm">K</kbd>
+        </span>
+      </label>
+    </>
   );
 };

@@ -13,9 +13,6 @@ type GitlabMergeRequest = {
   blocking_discussions_resolved: boolean;
   has_conflicts: boolean;
   draft: boolean;
-  isNew: boolean;
-  updatedDaysAgo: number;
-  project: string;
 };
 
 export type MergeRequest = GitlabMergeRequest & {
