@@ -16,6 +16,14 @@ export default defineConfig({
   esbuild: {
     legalComments: "none",
   },
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: "[hash].css",
+        chunkFileNames: "[hash].js",
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
