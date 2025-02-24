@@ -3,12 +3,12 @@ import { JSX, PropsWithChildren } from "react";
 import { BiGhost } from "react-icons/bi";
 import { HiViewList } from "react-icons/hi";
 import { TbLayoutGrid } from "react-icons/tb";
-import { Link } from "react-router";
 import { twMerge } from "tailwind-merge";
 import { SearchField } from "./search/SearchField";
 import { FaRegUser } from "react-icons/fa";
 import { LuFolderGit } from "react-icons/lu";
 import { LiaJira } from "react-icons/lia";
+import { LinkWithQuery } from "../router/LinkWithQuery";
 
 export type Layout = "" | "by-issue" | "by-author" | "condensed" | "list";
 
@@ -19,7 +19,7 @@ type JoinItemProps = {
   tip: string;
 };
 const JoinItem = ({ currentLayout, itemLayout, tip, icon }: JoinItemProps) => (
-  <Link to={`/${itemLayout}`}>
+  <LinkWithQuery to={`/${itemLayout}`}>
     <div className="tooltip tooltip-bottom" data-tip={tip}>
       <button
         className={twMerge(
@@ -30,7 +30,7 @@ const JoinItem = ({ currentLayout, itemLayout, tip, icon }: JoinItemProps) => (
         {icon}
       </button>
     </div>
-  </Link>
+  </LinkWithQuery>
 );
 
 export type MergeRequestsLayoutProps = {
