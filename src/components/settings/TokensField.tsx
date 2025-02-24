@@ -16,7 +16,7 @@ export const TokensField = ({ register, errors }: TokensFieldProps) => (
         errors?.tokens && "input-error"
       )}
       placeholder={`{
-    "https://gitlab.example.com": "123456789"
+    "https://gitlab.example.com": "Bearer 123456789"
 }`}
       {...register("tokens", {
         validate: (value) => !value?.trim() || isValidJson(value),
