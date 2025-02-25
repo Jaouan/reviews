@@ -48,7 +48,7 @@ export const fetchMergeRequests = async ({
       author: mr.author.name?.toLowerCase() ?? mr.author.username,
       project: extractShortProjectName(mr.references.full),
       title: mr.title.replace(/Draft: */, ""),
-      isNew: isLessThanHours(new Date(mr.updated_at), 8),
+      isNew: isLessThanHours(new Date(mr.created_at), 8),
       updatedDaysAgo: getDaysAgo(new Date(mr.updated_at)),
       issue: extractIssueRef(mr.title),
     }))
