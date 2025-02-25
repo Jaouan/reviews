@@ -23,8 +23,10 @@ export type MergeRequest = GitlabMergeRequest & {
   issue: string;
 };
 
+export type KnownCause = { unauthorized?: boolean; httpStatus?: number };
+
 export type FetchError = {
-  cause: unknown;
+  cause: KnownCause | unknown;
   endpoint?: string;
 };
 

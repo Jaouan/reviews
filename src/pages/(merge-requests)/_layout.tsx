@@ -2,13 +2,12 @@ import { Error } from "@/components/layout/Error";
 import { PageMessage } from "@/components/layout/PageMessage";
 import { useSettingsModal } from "@/components/settings/useSettingsModel";
 import { useRefreshMergeRequests } from "@/hooks/useRefreshMergeRequests";
-import { logger } from "@/shared";
+import { useToastsErrors } from "@/hooks/useToastsErrors";
+import { FetchError, KnownCause, logger } from "@/shared";
 import { useSettings } from "@/stores";
-import { useEffect } from "react";
 import { LuPartyPopper } from "react-icons/lu";
 import { TbSettingsQuestion, TbSettingsX } from "react-icons/tb";
 import { Outlet, useRouteError } from "react-router";
-import { toast } from "react-toastify";
 import { useShallow } from "zustand/shallow";
 
 export const Catch = () => {
@@ -21,18 +20,13 @@ export default function Layout() {
   const { show } = useSettingsModal();
   const save = useSettings(useShallow(({ save }) => save));
   const { noEndpoints, errors, noMergeRequests } = useRefreshMergeRequests();
+  useToastsErrors(errors);
 
   const addDemoEndpoints = () => {
     save({
       endpoints: ["/mock-api/v4/merge_requests"],
     });
   };
-
-  useEffect(() => {
-    errors?.forEach((error) =>
-      toast.error(`Unable to fetch ${error.endpoint ?? "endpoint"}`)
-    );
-  }, [errors]);
 
   if (noEndpoints) {
     return (
@@ -56,9 +50,47 @@ export default function Layout() {
   }
 
   if (errors?.length && noMergeRequests) {
+    const hasUnauthorized = errors.some(
+      (error) => (error.cause as KnownCause)?.unauthorized
+    );
+    const tokensTips =
+      hasUnauthorized &&
+      JSON.stringify(
+        errors
+          .filter(
+            (error) =>
+              error.endpoint && (error.cause as KnownCause)?.unauthorized
+          )
+          .reduce((acc: Record<string, string>, error: FetchError) => {
+            acc[error.endpoint ?? "unknown"] = "Bearer <TOKEN>";
+            return acc;
+          }, {}),
+        null,
+        2
+      );
     return (
       <PageMessage icon={<TbSettingsX />}>
-        You have no open merge requests, but some endpoints encountered errors.
+        You have no open merge requests...
+        {hasUnauthorized ? (
+          <div className="flex flex-col gap-2 alert alert-soft alert-error ">
+            <div className="flex items-center gap-2">
+              <span>
+                ... but some endpoints seem to be unauthorized. Check your{" "}
+                <button className="btn btn-outline btn-xs" onClick={show}>
+                  settings
+                </button>{" "}
+                and try again.
+              </span>
+            </div>
+            <div className="p-4 rounded-box font-mono whitespace-pre bg-base-100 max-w-[80vw] overflow-auto">
+              {tokensTips}
+            </div>
+          </div>
+        ) : (
+          <div className="alert alert-soft alert-error">
+            ... but some endpoints encountered errors.
+          </div>
+        )}
       </PageMessage>
     );
   }

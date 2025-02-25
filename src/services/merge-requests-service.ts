@@ -23,14 +23,23 @@ export const fetchMergeRequests = async ({
     await Promise.all(
       expandedEndpoints.map(async (endpoint) => {
         try {
+          const response = await fetch(endpoint, {
+            headers: {
+              Authorization: findToken(endpoint, tokens) ?? "",
+            },
+          });
+          if (response.status === 401 || response.status === 403) {
+            throw {
+              unauthorized: true,
+            };
+          }
+          if (response.status !== 200) {
+            throw {
+              httpStatus: response.status,
+            };
+          }
           return {
-            mergeRequests: await (
-              await fetch(endpoint, {
-                headers: {
-                  Authorization: findToken(endpoint, tokens) ?? "",
-                },
-              })
-            ).json(),
+            mergeRequests: await response.json(),
           };
         } catch (error) {
           logger.error("Error fetching endpoint", endpoint, error);
