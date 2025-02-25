@@ -1,8 +1,8 @@
-import { RelativeDateBadge } from "../content/RelativeDateBadge";
 import { MergeRequest } from "@/shared";
-import { StateBadges } from "../content/StateBadges";
-import { BranchBadge } from "../content/BranchBadge";
-import { AuthorBadge } from "../content/AuthorBadge";
+import { StateBadges } from "../../content/StateBadges";
+import { BranchBadge } from "../../content/BranchBadge";
+import { AuthorBadge } from "../../content/AuthorBadge";
+import { RelativeDateBadge } from "../../content/RelativeDateBadge";
 
 export type MergeRequestCardProps = {
   mergeRequest: MergeRequest;

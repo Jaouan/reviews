@@ -100,7 +100,7 @@ export const SearchField = () => {
         className={twMerge(
           "transition-all input input-sm bg-base-200 border-base-200 w-8 p-1 justify-center items-center focus-within:w-80 max-w-full",
           searchTerm && "w-80",
-          fullWidth ? "border-base-300" : "cursor-pointer p-0"
+          fullWidth ? "border-base-300" : "cursor-pointer p-0 hover:bg-base-300"
         )}
       >
         <IoSearch

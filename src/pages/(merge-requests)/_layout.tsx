@@ -1,13 +1,17 @@
 import { Error } from "@/components/layout/Error";
 import { PageMessage } from "@/components/layout/PageMessage";
+import { FetchErrorAlert } from "@/components/merge-requests/error/FetchErrorAlert";
+import { RefreshButton } from "@/components/merge-requests/refresh/RefreshButton";
+import { SearchField } from "@/components/merge-requests/search/SearchField";
+import { DropViewSelector } from "@/components/merge-requests/views-selector/DropViewSelector";
+import { ViewsSelector } from "@/components/merge-requests/views-selector/ViewsSelector";
 import { useSettingsModal } from "@/components/settings/useSettingsModel";
 import { useRefreshMergeRequests } from "@/hooks/useRefreshMergeRequests";
-import { useToastsErrors } from "@/hooks/useToastsErrors";
-import { FetchError, KnownCause, logger } from "@/shared";
+import { logger } from "@/shared";
 import { useSettings } from "@/stores";
-import { LuPartyPopper } from "react-icons/lu";
-import { TbSettingsQuestion, TbSettingsX } from "react-icons/tb";
-import { Outlet, useRouteError } from "react-router";
+import { BiGhost } from "react-icons/bi";
+import { TbSettingsQuestion } from "react-icons/tb";
+import { Outlet, useParams, useRouteError } from "react-router";
 import { useShallow } from "zustand/shallow";
 
 export const Catch = () => {
@@ -17,10 +21,13 @@ export const Catch = () => {
 };
 
 export default function Layout() {
+  const { view } = useParams();
   const { show } = useSettingsModal();
   const save = useSettings(useShallow(({ save }) => save));
-  const { noEndpoints, errors, noMergeRequests } = useRefreshMergeRequests();
-  useToastsErrors(errors);
+  const { noEndpoints, errors, noMatch, triggerRefresh } =
+    useRefreshMergeRequests();
+
+  const currentView = view ?? "by-project";
 
   const addDemoEndpoints = () => {
     save({
@@ -49,59 +56,22 @@ export default function Layout() {
     );
   }
 
-  if (errors?.length && noMergeRequests) {
-    const hasUnauthorized = errors.some(
-      (error) => (error.cause as KnownCause)?.unauthorized
-    );
-    const tokensTips =
-      hasUnauthorized &&
-      JSON.stringify(
-        errors
-          .filter(
-            (error) =>
-              error.endpoint && (error.cause as KnownCause)?.unauthorized
-          )
-          .reduce((acc: Record<string, string>, error: FetchError) => {
-            acc[error.endpoint ?? "unknown"] = "Bearer <TOKEN>";
-            return acc;
-          }, {}),
-        null,
-        2
-      );
-    return (
-      <PageMessage icon={<TbSettingsX />}>
-        You have no open merge requests...
-        {hasUnauthorized ? (
-          <div className="flex flex-col gap-2 alert alert-soft alert-error ">
-            <div className="flex items-center gap-2">
-              <span>
-                ... but some endpoints seem to be unauthorized. Check your{" "}
-                <button className="btn btn-outline btn-xs" onClick={show}>
-                  settings
-                </button>{" "}
-                and try again.
-              </span>
-            </div>
-            <div className="p-4 rounded-box font-mono whitespace-pre bg-base-100 max-w-[80vw] overflow-auto">
-              {tokensTips}
-            </div>
-          </div>
-        ) : (
-          <div className="alert alert-soft alert-error">
-            ... but some endpoints encountered errors.
-          </div>
-        )}
-      </PageMessage>
-    );
-  }
-
-  if (noMergeRequests) {
-    return (
-      <PageMessage icon={<LuPartyPopper />}>
-        You have no open merge requests.
-      </PageMessage>
-    );
-  }
-
-  return <Outlet />;
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="mt-4 mx-4 flex flex-row gap-2 justify-end items-center">
+        <SearchField />
+        <ViewsSelector currentView={currentView} className="hidden sm:flex" />
+        <DropViewSelector currentView={currentView} className="sm:hidden" />
+        <RefreshButton triggerRefresh={triggerRefresh} />
+      </div>
+      <FetchErrorAlert errors={errors} />
+      <Outlet />
+      {noMatch && (
+        <div className="flex flex-col justify-center items-center m-8 opacity-50">
+          <BiGhost className="text-4xl animate-bounce" />
+          <div>Nothing.</div>
+        </div>
+      )}
+    </div>
+  );
 }

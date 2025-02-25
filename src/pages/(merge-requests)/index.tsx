@@ -1,5 +1,5 @@
-import { MergeRequestsCardsGroupByLayout } from "@/components/merge-requests/card/MergeRequestsCardsGroupByLayout";
+import { Navigate } from "react-router";
 
-export default function MergeRequestCardsPage() {
-  return <MergeRequestsCardsGroupByLayout layout="" groupByKey="project" />;
+export default function Home() {
+  return <Navigate to={`/by-project${window.location.search}`} replace />;
 }

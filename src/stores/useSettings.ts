@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type MergeRequestsStore = ApiSettings & {
+  autoRefresh: number | null;
   overrideEndpoints?: string[] | null;
   save: (newSettings: Partial<MergeRequestsStore>) => void;
 };
@@ -10,10 +11,11 @@ type MergeRequestsStore = ApiSettings & {
 export const useSettings = create<MergeRequestsStore>()(
   persist(
     (set) => ({
+      autoRefresh: null,
       tokens: {},
       endpoints: [],
       overrideEndpoints: null,
-      save: ({ endpoints, overrideEndpoints, tokens }) =>
+      save: ({ autoRefresh, endpoints, overrideEndpoints, tokens }) =>
         set((state) => ({
           endpoints: endpoints ?? state.endpoints,
           tokens: tokens ?? state.tokens,
@@ -21,6 +23,8 @@ export const useSettings = create<MergeRequestsStore>()(
             overrideEndpoints === undefined
               ? state.overrideEndpoints
               : overrideEndpoints,
+          autoRefresh:
+            autoRefresh === undefined ? state.autoRefresh : autoRefresh,
         })),
     }),
     {

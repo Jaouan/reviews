@@ -1,42 +1,56 @@
 import { useMergeRequests, useSettings } from "@/stores";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useShallow } from "zustand/shallow";
 
 export const useRefreshMergeRequests = () => {
-  const { endpoints, overrideEndpoints, tokens } = useSettings(
-    useShallow(({ endpoints, overrideEndpoints, tokens }) => ({
+  const { endpoints, overrideEndpoints, tokens, autoRefresh } = useSettings(
+    useShallow(({ endpoints, overrideEndpoints, tokens, autoRefresh }) => ({
       endpoints,
       overrideEndpoints,
       tokens,
+      autoRefresh,
     }))
   );
-  const { allMergeRequests, errors, refresh } = useMergeRequests(
-    useShallow(({ allMergeRequests, errors, refresh }) => ({
+  const { allMergeRequests, mergeRequests, errors, refresh } = useMergeRequests(
+    useShallow(({ allMergeRequests, mergeRequests, errors, refresh }) => ({
       allMergeRequests,
+      mergeRequests,
       errors,
       refresh,
     }))
   );
+  const [currentEndpoints, setCurrentEndpoints] = useState(
+    overrideEndpoints ?? endpoints
+  );
+
+  const triggerRefresh = () => {
+    refresh({
+      endpoints: currentEndpoints,
+      tokens,
+      clear: false,
+    });
+  };
 
   useEffect(() => {
     if (!endpoints) return;
     if (overrideEndpoints) return;
-    refresh({
-      endpoints,
-      tokens,
-    });
-  }, [endpoints, tokens]);
+    setCurrentEndpoints(endpoints);
+  }, [endpoints, overrideEndpoints, tokens]);
 
   useEffect(() => {
-    if (!overrideEndpoints) return;
-    refresh({
-      endpoints: overrideEndpoints,
-      tokens,
-    });
-  }, [overrideEndpoints, tokens]);
+    if (!currentEndpoints?.length) return;
+    triggerRefresh();
+  }, [currentEndpoints, tokens]);
+
+  useEffect(() => {
+    if (autoRefresh && autoRefresh > 0) {
+      const interval = setInterval(triggerRefresh, autoRefresh * 60_000);
+      return () => clearInterval(interval);
+    }
+  }, [currentEndpoints, tokens, autoRefresh]);
 
   const noEndpoints = !endpoints.length;
-  const noMergeRequests = allMergeRequests !== null && !allMergeRequests.length;
+  const noMatch = !!(allMergeRequests?.length && !mergeRequests?.length);
 
-  return { noEndpoints, errors, noMergeRequests };
+  return { noEndpoints, errors, noMatch, triggerRefresh };
 };

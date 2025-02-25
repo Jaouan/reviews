@@ -1,26 +1,26 @@
 import { LinkWithQuery } from "@/components/router/LinkWithQuery";
-import { Layout } from "@/shared";
 import { JSX } from "react";
 import { twMerge } from "tailwind-merge";
+import { ViewId } from "../views/Views";
 
 export type ViewSelectorProps = {
-  currentLayout?: Layout;
-  itemLayout: Layout;
+  currentView?: ViewId;
+  itemLayout: ViewId;
   icon: JSX.Element;
   label: string;
 };
 export const ViewSelector = ({
-  currentLayout,
-  itemLayout,
+  currentView,
+  itemLayout: itemView,
   label,
   icon,
 }: ViewSelectorProps) => (
-  <LinkWithQuery to={`/${itemLayout}`}>
+  <LinkWithQuery to={`/${itemView}`}>
     <div className="tooltip tooltip-bottom" data-tip={label}>
       <button
         className={twMerge(
           "btn btn-sm join-item",
-          currentLayout === itemLayout && "btn-active"
+          currentView === itemView && "btn-active"
         )}
       >
         {icon}

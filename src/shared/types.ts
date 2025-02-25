@@ -1,5 +1,3 @@
-export type Layout = "" | "by-issue" | "by-author" | "compact" | "list";
-
 type GitlabMergeRequest = {
   id: number;
   title: string;

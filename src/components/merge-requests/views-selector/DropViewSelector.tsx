@@ -1,27 +1,32 @@
-import { Layout } from "@/shared";
 import { twMerge } from "tailwind-merge";
-import { views } from "./Views";
+import { ViewId, viewsDefinitions } from "../views/Views";
 import { LinkWithQuery } from "@/components/router/LinkWithQuery";
 import { PropsWithClassName } from "@/shared/PropsWithClassName";
 
 export type DropViewSelectorProps = {
-  layout?: Layout;
+  currentView?: ViewId;
 } & PropsWithClassName;
 export const DropViewSelector = ({
-  layout,
+  currentView,
   className,
 }: DropViewSelectorProps) => (
   <div className={twMerge("dropdown dropdown-end", className)}>
     <button className={twMerge("btn btn-sm join-item")}>
-      {views[layout || ""]?.icon}
+      {viewsDefinitions[currentView || ""]?.icon}
     </button>
     <ul
       tabIndex={0}
       className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
     >
-      {Object.entries(views).map(([itemLayout, { label, icon }]) => (
+      {Object.entries(viewsDefinitions).map(([itemLayout, { label, icon }]) => (
         <li key={itemLayout}>
-          <LinkWithQuery to={`/${itemLayout}`}>
+          <LinkWithQuery
+            to={`/${itemLayout}`}
+            onClick={() => {
+              // Ensure the dropdown is closed
+              (document.activeElement as HTMLElement)?.blur?.();
+            }}
+          >
             {icon}
             {label}
           </LinkWithQuery>

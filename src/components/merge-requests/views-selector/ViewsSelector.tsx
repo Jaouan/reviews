@@ -1,19 +1,21 @@
 import { ViewSelector } from "./ViewSelector";
-import { Layout } from "@/shared";
-import { views } from "./Views";
 import { PropsWithClassName } from "@/shared/PropsWithClassName";
 import { twMerge } from "tailwind-merge";
+import { ViewId, viewsDefinitions } from "../views/Views";
 
 export type ViewsSelectorProps = {
-  layout?: Layout;
+  currentView?: ViewId;
 } & PropsWithClassName;
-export const ViewsSelector = ({ layout, className }: ViewsSelectorProps) => (
+export const ViewsSelector = ({
+  currentView,
+  className,
+}: ViewsSelectorProps) => (
   <div className={twMerge("join", className)}>
-    {Object.entries(views).map(([itemLayout, { label, icon }]) => (
+    {Object.entries(viewsDefinitions).map(([itemLayout, { label, icon }]) => (
       <ViewSelector
         key={itemLayout}
-        currentLayout={layout}
-        itemLayout={itemLayout as Layout}
+        currentView={currentView}
+        itemLayout={itemLayout as ViewId}
         label={label}
         icon={icon}
       />

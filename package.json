@@ -2,7 +2,7 @@
   "name": "@jaouan/reviews",
   "description": "Dashboard for Gitlab Merge Requests",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
