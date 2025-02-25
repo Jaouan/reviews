@@ -1,9 +1,6 @@
 import { MergeRequestsCards } from "@/components/merge-requests/card/MergeRequestCards";
-import {
-  Layout,
-  MergeRequestsLayout,
-} from "@/components/merge-requests/MergeRequestsLayout";
-import { groupBy, MergeRequest } from "@/shared";
+import { MergeRequestsLayout } from "@/components/merge-requests/MergeRequestsLayout";
+import { groupBy, Layout, MergeRequest } from "@/shared";
 import { useMergeRequests } from "@/stores";
 
 export type MergeRequestsCardsGroupByLayoutProps = {
