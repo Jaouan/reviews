@@ -9,8 +9,9 @@ import { FaRegUser } from "react-icons/fa";
 import { LuFolderGit } from "react-icons/lu";
 import { LiaJira } from "react-icons/lia";
 import { LinkWithQuery } from "../router/LinkWithQuery";
+import { PiWarningCircleBold } from "react-icons/pi";
 
-export type Layout = "" | "by-issue" | "by-author" | "condensed" | "list";
+export type Layout = "" | "by-issue" | "by-author" | "compact" | "list";
 
 type JoinItemProps = {
   currentLayout?: Layout;
@@ -40,7 +41,7 @@ export const MergeRequestsLayout = ({
   layout,
   children,
 }: MergeRequestsLayoutProps) => {
-  const { mergeRequests } = useMergeRequests();
+  const { errors, mergeRequests } = useMergeRequests();
   return (
     <div className="flex flex-col gap-4">
       <div className="mt-4 mx-4 flex flex-row gap-2 justify-end items-center">
@@ -67,7 +68,7 @@ export const MergeRequestsLayout = ({
           <JoinItem
             icon={<TbLayoutGrid />}
             currentLayout={layout}
-            itemLayout="condensed"
+            itemLayout="compact"
             tip="Condensed"
           />
           <JoinItem
@@ -78,6 +79,12 @@ export const MergeRequestsLayout = ({
           />
         </div>
       </div>
+      {!!errors?.length && (
+        <div className="mx-4 alert alert-soft alert-warning">
+          <PiWarningCircleBold />
+          Some endpoints encountered errors, merge requests may be missing.
+        </div>
+      )}
       {children}
       {mergeRequests && !mergeRequests.length && (
         <div className="flex flex-col justify-center items-center m-8 opacity-50">

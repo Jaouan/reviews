@@ -25,7 +25,7 @@ export const MergeRequestsCardsGroupByLayout = ({
     ? Object.entries(groupBy(mergeRequests, (mr) => mr[groupByKey]))
     : [];
 
-  if (mergeRequests === null) return <Skeletons />;
+  if (mergeRequests === null) return <Skeletons layout={layout} />;
 
   return (
     <MergeRequestsLayout layout={layout}>
@@ -44,8 +44,8 @@ export const MergeRequestsCardsGroupByLayout = ({
   );
 };
 
-const Skeletons = () => (
-  <MergeRequestsLayout layout="">
+const Skeletons = ({ layout }: { layout: Layout }) => (
+  <MergeRequestsLayout layout={layout}>
     <section className="transition-all px-4 sm:px-8 pb-8 gap-8 w-full flex flex-row flex-wrap">
       <article className="w-full">
         <div className="skeleton w-48 h-8 mb-4"></div>

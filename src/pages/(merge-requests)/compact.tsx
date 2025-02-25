@@ -8,7 +8,7 @@ export default function MergeRequestCardsPage() {
   if (mergeRequests === null) return <Skeletons />;
 
   return (
-    <MergeRequestsLayout layout="condensed">
+    <MergeRequestsLayout layout="compact">
       <section className="transition-all px-4 sm:px-8 pb-8">
         <MergeRequestsCards mergeRequests={mergeRequests} />
       </section>
@@ -17,7 +17,7 @@ export default function MergeRequestCardsPage() {
 }
 
 const Skeletons = () => (
-  <MergeRequestsLayout layout="condensed">
+  <MergeRequestsLayout layout="compact">
     <section className="transition-all px-4 sm:px-8 pb-8">
       <article>
         <div className="flex flex-wrap justify-center gap-4">
