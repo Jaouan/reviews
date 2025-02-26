@@ -1,5 +1,6 @@
 import { Error } from "@/components/layout/Error";
 import { PageMessage } from "@/components/layout/PageMessage";
+import { CopyButton } from "@/components/requests/copy/CopyButton";
 import { FetchErrorAlert } from "@/components/requests/error/FetchErrorAlert";
 import { RefreshButton } from "@/components/requests/refresh/RefreshButton";
 import { SearchField } from "@/components/requests/search/SearchField";
@@ -24,8 +25,7 @@ export default function Layout() {
   const { view } = useParams();
   const { show } = useSettingsModal();
   const save = useSettings(useShallow(({ save }) => save));
-  const { noEndpoints, errors, noMatch, triggerRefresh } =
-    useRefreshRequests();
+  const { noEndpoints, errors, noMatch, triggerRefresh } = useRefreshRequests();
 
   const currentView = view ?? "by-project";
 
@@ -62,6 +62,7 @@ export default function Layout() {
         <SearchField />
         <ViewsSelector currentView={currentView} className="hidden sm:flex" />
         <DropViewSelector currentView={currentView} className="sm:hidden" />
+        <CopyButton currentView={currentView} />
         <RefreshButton triggerRefresh={triggerRefresh} />
       </div>
       <FetchErrorAlert errors={errors} />

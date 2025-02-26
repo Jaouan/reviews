@@ -1,4 +1,4 @@
-import { MergeRequest } from "@/shared";
+import { getHumanRelativeDate, MergeRequest } from "@/shared";
 import { PropsWithClassName } from "@/shared/PropsWithClassName";
 import { twMerge } from "tailwind-merge";
 
@@ -11,11 +11,6 @@ const getBadgeClass = (diffDays: number): string => {
 const getBadgeEmoji = (diffDays: number): string | null => {
   if (diffDays > 60) return "💀";
   return "";
-};
-
-const diffDaysString: Record<number, string> = {
-  0: "Today",
-  1: "Yesterday",
 };
 
 export type RelativeDateProps = {
@@ -37,8 +32,9 @@ export const RelativeDateBadge = ({
           className
         )}
       >
-        {diffDaysString[updatedDaysAgo] ??
-          `${updatedDaysAgo} days ago ${getBadgeEmoji(updatedDaysAgo)}`}
+        {`${getHumanRelativeDate(new Date(updated_at))} ${getBadgeEmoji(
+          updatedDaysAgo
+        )}`}
       </span>
     </div>
   );

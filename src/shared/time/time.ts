@@ -23,3 +23,12 @@ export const getDaysAgo = (date: Date): number => {
 
   return Math.max(0, diffDays);
 };
+
+const diffDaysString: Record<number, string> = {
+  0: "Today",
+  1: "Yesterday",
+};
+export const getHumanRelativeDate = (date: Date): string => {
+  const updatedDaysAgo = getDaysAgo(date);
+  return diffDaysString[updatedDaysAgo] ?? `${updatedDaysAgo} days ago`;
+};

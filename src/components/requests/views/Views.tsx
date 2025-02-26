@@ -8,16 +8,19 @@ import {
   RequestsCardsGroupByLayout,
   RequestsCardsGroupByLayoutSkeleton,
 } from "./cards/RequestsCardsView";
+import { RequestsListView, RequestsListViewSkeleton } from "./RequestsListView";
+import { MergeRequest } from "@/shared";
 import {
-  RequestsListView,
-  RequestsListViewSkeleton,
-} from "./RequestsListView";
+  requestsGroupToStringFactory,
+  requestsToString,
+} from "@/shared/requests/requests-to-str";
 
 type ViewDefinition = {
   label: string;
   icon: JSX.Element;
   element: () => JSX.Element;
   skeleton: () => JSX.Element;
+  copyString: (mergeRequests: MergeRequest[]) => string;
 };
 
 export const viewsDefinitions: Record<string, ViewDefinition> = {
@@ -26,6 +29,7 @@ export const viewsDefinitions: Record<string, ViewDefinition> = {
     icon: <LuFolderGit />,
     element: () => <RequestsCardsGroupByLayout groupByKey="project" />,
     skeleton: () => <RequestsCardsGroupByLayoutSkeleton />,
+    copyString: requestsGroupToStringFactory("project"),
   },
   "by-issue": {
     label: "By issue",
@@ -34,6 +38,7 @@ export const viewsDefinitions: Record<string, ViewDefinition> = {
       <RequestsCardsGroupByLayout groupByKey="issue" withProjectName />
     ),
     skeleton: () => <RequestsCardsGroupByLayoutSkeleton />,
+    copyString: requestsGroupToStringFactory("issue"),
   },
   "by-author": {
     label: "By author",
@@ -46,18 +51,21 @@ export const viewsDefinitions: Record<string, ViewDefinition> = {
       />
     ),
     skeleton: () => <RequestsCardsGroupByLayoutSkeleton />,
+    copyString: requestsGroupToStringFactory("author"),
   },
   compact: {
     label: "Compact",
     icon: <TbLayoutGrid />,
     element: () => <RequestsCardsGroupByLayout withProjectName />,
     skeleton: () => <RequestsCardsGroupByLayoutSkeleton compact />,
+    copyString: requestsToString,
   },
   list: {
     label: "List",
     icon: <HiViewList />,
     element: () => <RequestsListView />,
     skeleton: () => <RequestsListViewSkeleton />,
+    copyString: requestsToString,
   },
 };
 
