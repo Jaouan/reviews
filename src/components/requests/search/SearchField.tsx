@@ -1,5 +1,5 @@
 import { useEvent } from "@/hooks/useEvent";
-import { isMac } from "@/shared/is-mac";
+import { isMac, isMobile } from "@/shared/is-os";
 import { useRequests } from "@/stores";
 import { useEffect, useRef, useState } from "react";
 import { IoIosHelpCircleOutline } from "react-icons/io";
@@ -115,15 +115,17 @@ export const SearchField = () => {
           onChange={onChange}
           value={searchTerm}
         />
-        <span
-          className={twMerge(
-            "transition-a flex gap-1 opacity-30",
-            fullWidth ? null : "hidden"
-          )}
-        >
-          <kbd className="kbd kbd-sm">{metaKey}</kbd>
-          <kbd className="kbd kbd-sm">K</kbd>
-        </span>
+        {!isMobile() && (
+          <span
+            className={twMerge(
+              "transition-a flex gap-1 opacity-30",
+              fullWidth ? null : "hidden"
+            )}
+          >
+            <kbd className="kbd kbd-sm">{metaKey}</kbd>
+            <kbd className="kbd kbd-sm">K</kbd>
+          </span>
+        )}
       </label>
     </>
   );
