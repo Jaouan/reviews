@@ -11,12 +11,12 @@ export const DropViewSelector = ({
   className,
 }: DropViewSelectorProps) => (
   <div className={twMerge("dropdown dropdown-end", className)}>
-    <button className={twMerge("btn btn-sm join-item")}>
+    <div tabIndex={0} className="btn btn-sm join-item">
       {viewsDefinitions[currentView || ""]?.icon}
-    </button>
+    </div>
     <ul
       tabIndex={0}
-      className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
+      className="dropdown-content menu bg-base-300 rounded-box z-1 w-36 p-2 shadow-sm"
     >
       {Object.entries(viewsDefinitions).map(([itemLayout, { label, icon }]) => (
         <li key={itemLayout}>

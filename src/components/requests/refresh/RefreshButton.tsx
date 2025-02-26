@@ -14,9 +14,7 @@ export type RefreshButtonProps = {
   triggerRefresh: () => void;
 };
 export const RefreshButton = ({ triggerRefresh }: RefreshButtonProps) => {
-  const refreshing = useRequests(
-    useShallow(({ refreshing }) => refreshing)
-  );
+  const refreshing = useRequests(useShallow(({ refreshing }) => refreshing));
   const { autoRefresh, save } = useSettings(
     useShallow(({ autoRefresh, save }) => ({ autoRefresh, save }))
   );
@@ -36,11 +34,11 @@ export const RefreshButton = ({ triggerRefresh }: RefreshButtonProps) => {
   );
 
   return (
-    <div className="flex flex-nowrap">
+    <div className="flex flex-nowrap join">
       <div className="tooltip tooltip-bottom" data-tip="Refresh">
         <button
           className={twMerge(
-            "px-2 btn btn-sm join-item rounded-r-[0]",
+            "px-2 btn btn-sm join-item",
             refreshing && "bg-base-200!"
           )}
           onClick={triggerRefresh}
@@ -54,10 +52,10 @@ export const RefreshButton = ({ triggerRefresh }: RefreshButtonProps) => {
           )}
         </button>
       </div>
-      <div className={twMerge("dropdown dropdown-end")}>
-        <button className={twMerge("btn btn-sm p-1 join-item rounded-l-[0]")}>
+      <div className="dropdown dropdown-end">
+        <div tabIndex={0} className={"btn btn-sm p-1 join-item"}>
           <IoIosArrowDown className="text-[0.5rem]" />
-        </button>
+        </div>
         <ul
           tabIndex={0}
           className="dropdown-content menu bg-base-300 rounded-box z-1 p-2 shadow-sm"
