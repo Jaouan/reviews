@@ -1,6 +1,6 @@
 import { useEvent } from "@/hooks/useEvent";
 import { isMac } from "@/shared/is-mac";
-import { useMergeRequests } from "@/stores";
+import { useRequests } from "@/stores";
 import { useEffect, useRef, useState } from "react";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
@@ -26,7 +26,7 @@ const operators = [":", ":<", ":<=", ":>", ":>="];
 
 export const SearchField = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { search, searchTerm: storeSearchTerm } = useMergeRequests(
+  const { search, searchTerm: storeSearchTerm } = useRequests(
     useShallow(({ search, searchTerm }) => ({ search, searchTerm }))
   );
   const [searchTerm, setSearchTerm] = useState(storeSearchTerm ?? "");

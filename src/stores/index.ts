@@ -1,2 +1,2 @@
-export * from "./useMergeRequests";
+export * from "./useRequests";
 export * from "./useSettings";

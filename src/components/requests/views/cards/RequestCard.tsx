@@ -23,7 +23,7 @@ export const MergeRequestCard = ({
           <div className="flex flex-wrap gap-2">
             <StateBadges mr={mr} />
           </div>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap overflow-hidden">
             <BranchBadge mr={mr} withProjectName={withProjectName} />
           </div>
         </div>

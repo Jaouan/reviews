@@ -1,21 +1,21 @@
 import { groupBy, MergeRequest } from "@/shared";
-import { useMergeRequests } from "@/stores";
-import { MergeRequestsCards } from "./MergeRequestCards";
+import { useRequests } from "@/stores";
+import { RequestsCards } from "./RequestCards";
 import { twMerge } from "tailwind-merge";
 
-export type MergeRequestsCardsGroupByLayoutProps = {
+export type RequestsCardsGroupByLayoutProps = {
   groupByKey?: {
     [K in keyof MergeRequest]: MergeRequest[K] extends string ? K : never;
   }[keyof MergeRequest];
   groupClassName?: string;
   withProjectName?: boolean;
 };
-export const MergeRequestsCardsGroupByLayout = ({
+export const RequestsCardsGroupByLayout = ({
   groupByKey,
   groupClassName,
   withProjectName,
-}: MergeRequestsCardsGroupByLayoutProps) => {
-  const { mergeRequests } = useMergeRequests();
+}: RequestsCardsGroupByLayoutProps) => {
+  const { mergeRequests } = useRequests();
 
   const mergeRequestsByGroup: [string | undefined, MergeRequest[]][] =
     groupByKey
@@ -25,7 +25,7 @@ export const MergeRequestsCardsGroupByLayout = ({
   return (
     <section className="transition-all px-4 sm:px-8 pb-8 gap-8 flex flex-col">
       {mergeRequestsByGroup.map(([group, mergeRequests]) => (
-        <MergeRequestsCards
+        <RequestsCards
           key={group}
           group={group}
           groupClassName={groupClassName}
@@ -37,12 +37,12 @@ export const MergeRequestsCardsGroupByLayout = ({
   );
 };
 
-export type MergeRequestsCardsGroupByLayoutSkeletonProps = {
+export type RequestsCardsGroupByLayoutSkeletonProps = {
   compact?: boolean;
 };
-export const MergeRequestsCardsGroupByLayoutSkeleton = ({
+export const RequestsCardsGroupByLayoutSkeleton = ({
   compact = false,
-}: MergeRequestsCardsGroupByLayoutSkeletonProps) => {
+}: RequestsCardsGroupByLayoutSkeletonProps) => {
   const groupsCount = compact ? 1 : 3;
   const cardsCount = compact ? 8 : 3;
   return (

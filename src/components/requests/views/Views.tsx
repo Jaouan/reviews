@@ -5,13 +5,13 @@ import { LiaJira } from "react-icons/lia";
 import { LuFolderGit } from "react-icons/lu";
 import { TbLayoutGrid } from "react-icons/tb";
 import {
-  MergeRequestsCardsGroupByLayout,
-  MergeRequestsCardsGroupByLayoutSkeleton,
-} from "./cards/MergeRequestsCardsView";
+  RequestsCardsGroupByLayout,
+  RequestsCardsGroupByLayoutSkeleton,
+} from "./cards/RequestsCardsView";
 import {
-  MergeRequestsListView,
-  MergeRequestsListViewSkeleton,
-} from "./MergeRequestsListView";
+  RequestsListView,
+  RequestsListViewSkeleton,
+} from "./RequestsListView";
 
 type ViewDefinition = {
   label: string;
@@ -24,40 +24,40 @@ export const viewsDefinitions: Record<string, ViewDefinition> = {
   "by-project": {
     label: "By project",
     icon: <LuFolderGit />,
-    element: () => <MergeRequestsCardsGroupByLayout groupByKey="project" />,
-    skeleton: () => <MergeRequestsCardsGroupByLayoutSkeleton />,
+    element: () => <RequestsCardsGroupByLayout groupByKey="project" />,
+    skeleton: () => <RequestsCardsGroupByLayoutSkeleton />,
   },
   "by-issue": {
     label: "By issue",
     icon: <LiaJira />,
     element: () => (
-      <MergeRequestsCardsGroupByLayout groupByKey="issue" withProjectName />
+      <RequestsCardsGroupByLayout groupByKey="issue" withProjectName />
     ),
-    skeleton: () => <MergeRequestsCardsGroupByLayoutSkeleton />,
+    skeleton: () => <RequestsCardsGroupByLayoutSkeleton />,
   },
   "by-author": {
     label: "By author",
     icon: <FaRegUser />,
     element: () => (
-      <MergeRequestsCardsGroupByLayout
+      <RequestsCardsGroupByLayout
         groupByKey="author"
         groupClassName="capitalize"
         withProjectName
       />
     ),
-    skeleton: () => <MergeRequestsCardsGroupByLayoutSkeleton />,
+    skeleton: () => <RequestsCardsGroupByLayoutSkeleton />,
   },
   compact: {
     label: "Compact",
     icon: <TbLayoutGrid />,
-    element: () => <MergeRequestsCardsGroupByLayout withProjectName />,
-    skeleton: () => <MergeRequestsCardsGroupByLayoutSkeleton compact />,
+    element: () => <RequestsCardsGroupByLayout withProjectName />,
+    skeleton: () => <RequestsCardsGroupByLayoutSkeleton compact />,
   },
   list: {
     label: "List",
     icon: <HiViewList />,
-    element: () => <MergeRequestsListView />,
-    skeleton: () => <MergeRequestsListViewSkeleton />,
+    element: () => <RequestsListView />,
+    skeleton: () => <RequestsListViewSkeleton />,
   },
 };
 

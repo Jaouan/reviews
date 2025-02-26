@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { extractShortProjectName, findToken } from "./merge-requests-service";
+import { extractShortProjectName, findToken } from "./requests-service";
 
 describe("findToken", () => {
   it("should return the correct token when the endpoint starts with a known key", () => {

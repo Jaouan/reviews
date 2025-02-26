@@ -1,5 +1,5 @@
 import { getReadableDuration } from "@/shared/duration/duration";
-import { useMergeRequests, useSettings } from "@/stores";
+import { useRequests, useSettings } from "@/stores";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdRefresh } from "react-icons/md";
 import { twMerge } from "tailwind-merge";
@@ -14,7 +14,7 @@ export type RefreshButtonProps = {
   triggerRefresh: () => void;
 };
 export const RefreshButton = ({ triggerRefresh }: RefreshButtonProps) => {
-  const refreshing = useMergeRequests(
+  const refreshing = useRequests(
     useShallow(({ refreshing }) => refreshing)
   );
   const { autoRefresh, save } = useSettings(

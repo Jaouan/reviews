@@ -15,13 +15,31 @@ type GitlabMergeRequest = {
   draft: boolean;
 };
 
-export type MergeRequest = GitlabMergeRequest & {
-  isNew: boolean;
-  updatedDaysAgo: number;
-  project: string;
-  author: string;
-  issue: string;
+type GithubPullRequest = {
+  title: string;
+  state: string;
+  created_at: string;
+  updated_at: string;
+  html_url: string;
+  head: {
+    ref: string;
+  };
+  base: {
+    ref: string;
+  };
+  body: string;
+  conflicts: boolean;
+  draft: boolean;
 };
+
+export type MergeRequest = GithubPullRequest &
+  GitlabMergeRequest & {
+    isNew: boolean;
+    updatedDaysAgo: number;
+    project: string;
+    author: string;
+    issue: string;
+  };
 
 export type KnownCause = { unauthorized?: boolean; httpStatus?: number };
 

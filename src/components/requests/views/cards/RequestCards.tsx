@@ -1,19 +1,19 @@
 import { MergeRequest } from "@/shared";
-import { MergeRequestCard } from "./MergeRequestCard";
+import { MergeRequestCard } from "./RequestCard";
 import { twMerge } from "tailwind-merge";
 
-export type MergeRequestsCardsProps = {
+export type RequestsCardsProps = {
   mergeRequests: MergeRequest[];
   group?: string;
   groupClassName?: string;
   withProjectName?: boolean;
 };
-export const MergeRequestsCards = ({
+export const RequestsCards = ({
   group,
   mergeRequests,
   withProjectName,
   groupClassName,
-}: MergeRequestsCardsProps) => (
+}: RequestsCardsProps) => (
   <section>
     <div className="w-full">
       {group && (

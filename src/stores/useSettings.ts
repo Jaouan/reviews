@@ -2,13 +2,13 @@ import { ApiSettings, parseEndpointsFromQuery } from "@/shared";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-type MergeRequestsStore = ApiSettings & {
+type RequestsStore = ApiSettings & {
   autoRefresh: number | null;
   overrideEndpoints?: string[] | null;
-  save: (newSettings: Partial<MergeRequestsStore>) => void;
+  save: (newSettings: Partial<RequestsStore>) => void;
 };
 
-export const useSettings = create<MergeRequestsStore>()(
+export const useSettings = create<RequestsStore>()(
   persist(
     (set) => ({
       autoRefresh: null,

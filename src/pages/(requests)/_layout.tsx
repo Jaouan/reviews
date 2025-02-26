@@ -1,12 +1,12 @@
 import { Error } from "@/components/layout/Error";
 import { PageMessage } from "@/components/layout/PageMessage";
-import { FetchErrorAlert } from "@/components/merge-requests/error/FetchErrorAlert";
-import { RefreshButton } from "@/components/merge-requests/refresh/RefreshButton";
-import { SearchField } from "@/components/merge-requests/search/SearchField";
-import { DropViewSelector } from "@/components/merge-requests/views-selector/DropViewSelector";
-import { ViewsSelector } from "@/components/merge-requests/views-selector/ViewsSelector";
+import { FetchErrorAlert } from "@/components/requests/error/FetchErrorAlert";
+import { RefreshButton } from "@/components/requests/refresh/RefreshButton";
+import { SearchField } from "@/components/requests/search/SearchField";
+import { DropViewSelector } from "@/components/requests/views-selector/DropViewSelector";
+import { ViewsSelector } from "@/components/requests/views-selector/ViewsSelector";
 import { useSettingsModal } from "@/components/settings/useSettingsModel";
-import { useRefreshMergeRequests } from "@/hooks/useRefreshMergeRequests";
+import { useRefreshRequests } from "@/hooks/useRefreshRequests";
 import { logger } from "@/shared";
 import { useSettings } from "@/stores";
 import { BiGhost } from "react-icons/bi";
@@ -25,7 +25,7 @@ export default function Layout() {
   const { show } = useSettingsModal();
   const save = useSettings(useShallow(({ save }) => save));
   const { noEndpoints, errors, noMatch, triggerRefresh } =
-    useRefreshMergeRequests();
+    useRefreshRequests();
 
   const currentView = view ?? "by-project";
 

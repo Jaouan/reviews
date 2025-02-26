@@ -1,11 +1,11 @@
 # Reviews
 
-Dashboard for GitLab Merge Requests, deployable everywhere, including GitLab Pages. 
+Dashboard for GitLab Merge Requests and Github Pull Requests, deployable everywhere.   
 **👉 Also available on [reviews.jaouan.dev](https://reviews.jaouan.dev).**
 
 ## ✨ Features
 
-- **Merge Requests Overview**: Track all your MRs in one place with ease.
+- **Pull/Merge Requests Overview**: Track all your MRs and PRs in one place with ease.
 - **Advanced Filtering**: Quickly find relevant MRs using Lucene filters.
 
 ## 🛠️ Installation

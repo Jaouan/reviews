@@ -13,10 +13,7 @@ export const findToken = (endpoint: string, tokens: Record<string, string>) =>
 export const extractShortProjectName = (fullReferences: string) =>
   fullReferences.split("!")[0]?.split("/").pop();
 
-export const fetchMergeRequests = async ({
-  endpoints,
-  tokens,
-}: ApiSettings) => {
+export const fetchRequests = async ({ endpoints, tokens }: ApiSettings) => {
   const expandedEndpoints = endpoints.flatMap(expandEndpointPattern);
 
   const mergeRequestsResponses = (
@@ -54,12 +51,23 @@ export const fetchMergeRequests = async ({
     .filter((mr) => mr != null)
     .map((mr) => ({
       ...mr,
-      author: mr.author.name?.toLowerCase() ?? mr.author.username,
-      project: extractShortProjectName(mr.references.full),
+      author:
+        mr.author?.name?.toLowerCase() ??
+        mr.author?.username ??
+        mr.user?.login ??
+        "unknown",
+      project:
+        mr.base?.repo?.full_name ?? extractShortProjectName(mr.references.full),
       title: mr.title.replace(/Draft: */, ""),
       isNew: isLessThanHours(new Date(mr.created_at), 8),
       updatedDaysAgo: getDaysAgo(new Date(mr.updated_at)),
-      issue: extractIssueRef(mr.title) ?? extractIssueRef(mr.source_branch),
+      issue:
+        extractIssueRef(mr.title) ??
+        extractIssueRef(mr.source_branch) ??
+        extractIssueRef(mr.head?.ref),
+      web_url: mr.web_url ?? mr.html_url,
+      source_branch: mr.source_branch ?? mr.head?.ref,
+      target_branch: mr.target_branch ?? mr.base?.ref,
     }))
     .sort((a, b) => b.updated_at.localeCompare(a.updated_at));
 

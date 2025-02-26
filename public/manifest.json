@@ -1,7 +1,7 @@
 {
   "name": "Reviews",
   "short_name": "Reviews",
-  "description": "Dashboard for Gitlab Merge Requests",
+  "description": "Dashboard for Gitlab Merge Requests and Github Pull Requests",
   "start_url": "/",
   "display": "standalone",
   "icons": [

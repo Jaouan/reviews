@@ -2,10 +2,10 @@ import { StateBadges } from "../content/StateBadges";
 import { BranchBadge } from "../content/BranchBadge";
 import { AuthorBadge } from "../content/AuthorBadge";
 import { RelativeDateBadge } from "../content/RelativeDateBadge";
-import { useMergeRequests } from "@/stores";
+import { useRequests } from "@/stores";
 
-export const MergeRequestsListView = () => {
-  const { mergeRequests } = useMergeRequests();
+export const RequestsListView = () => {
+  const { mergeRequests } = useRequests();
   return (
     <section className="transition-all px-0 sm:px-4 pb-8">
       <ul className="list">
@@ -38,7 +38,7 @@ export const MergeRequestsListView = () => {
   );
 };
 
-export const MergeRequestsListViewSkeleton = () => (
+export const RequestsListViewSkeleton = () => (
   <section className="transition-all px-0 sm:px-4 pb-8 my-1">
     <ul className="flex flex-col gap-2">
       <li className="transition-all skeleton w-full h-20 rounded-none sm:rounded-box"></li>

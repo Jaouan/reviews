@@ -1,8 +1,8 @@
-import { useMergeRequests, useSettings } from "@/stores";
+import { useRequests, useSettings } from "@/stores";
 import { useEffect, useState } from "react";
 import { useShallow } from "zustand/shallow";
 
-export const useRefreshMergeRequests = () => {
+export const useRefreshRequests = () => {
   const { endpoints, overrideEndpoints, tokens, autoRefresh } = useSettings(
     useShallow(({ endpoints, overrideEndpoints, tokens, autoRefresh }) => ({
       endpoints,
@@ -11,9 +11,9 @@ export const useRefreshMergeRequests = () => {
       autoRefresh,
     }))
   );
-  const { allMergeRequests, mergeRequests, errors, refresh } = useMergeRequests(
-    useShallow(({ allMergeRequests, mergeRequests, errors, refresh }) => ({
-      allMergeRequests,
+  const { allRequests, mergeRequests, errors, refresh } = useRequests(
+    useShallow(({ allRequests, mergeRequests, errors, refresh }) => ({
+      allRequests,
       mergeRequests,
       errors,
       refresh,
@@ -50,7 +50,7 @@ export const useRefreshMergeRequests = () => {
   }, [currentEndpoints, tokens, autoRefresh]);
 
   const noEndpoints = !endpoints.length;
-  const noMatch = !!(allMergeRequests?.length && !mergeRequests?.length);
+  const noMatch = !!(allRequests?.length && !mergeRequests?.length);
 
   return { noEndpoints, errors, noMatch, triggerRefresh };
 };

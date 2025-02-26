@@ -14,7 +14,7 @@ export const EndpointsField = ({
 }: EndpointsFieldProps) => (
   <fieldset className="fieldset flex flex-col">
     <legend className="fieldset-legend text-base">
-      Gitlab /merge_requests endpoints:
+      Gitlab /merge_requests and Github /pulls endpoints:
     </legend>
     <textarea
       className="textarea h-24 w-full"
