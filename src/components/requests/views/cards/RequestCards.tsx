@@ -23,7 +23,7 @@ export const RequestsCards = ({
             groupClassName
           )}
         >
-          {group === "undefined" || group === "null" ? "Others" : group}
+          {group}
         </span>
       )}
       <div

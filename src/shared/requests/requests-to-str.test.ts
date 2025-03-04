@@ -11,6 +11,7 @@ const mockRequests = [
     web_url: "https://example.com/mr/1",
     updated_at: new Date().toISOString(),
     project: "Project A",
+    issue: "FOO-123",
   },
   {
     title: "Add new feature",
@@ -42,6 +43,16 @@ Project B
   it("should return an empty string when given an empty array", () => {
     const formatRequests = requestsGroupToStringFactory("project");
     expect(formatRequests([])).toBe("");
+  });
+
+  it("should handle undefined", () => {
+    const formatRequests = requestsGroupToStringFactory("issue");
+    expect(formatRequests(mockRequests)).toBe(`FOO-123
+  - Fix bug #123 - https://example.com/mr/1 (today)
+
+Others
+  - Add new feature - https://example.com/mr/2 (today)
+  - Improve performance - https://example.com/mr/3 (today)`);
   });
 });
 

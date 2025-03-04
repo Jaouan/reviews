@@ -19,7 +19,9 @@ export const RequestsCardsGroupByLayout = ({
 
   const mergeRequestsByGroup: [string | undefined, MergeRequest[]][] =
     groupByKey
-      ? Object.entries(groupBy(mergeRequests ?? [], (mr) => mr[groupByKey]))
+      ? Object.entries(
+          groupBy(mergeRequests ?? [], (mr) => mr[groupByKey] ?? "Others")
+        )
       : [["", mergeRequests ?? []]];
 
   return (

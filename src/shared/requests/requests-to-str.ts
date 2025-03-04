@@ -10,7 +10,7 @@ export const requestsGroupToStringFactory =
   ) =>
   (requests: MergeRequest[]) => {
     const requestsByGroup = Object.entries(
-      groupBy(requests, (mr) => mr[groupKey])
+      groupBy(requests, (mr) => mr[groupKey] ?? "Others")
     );
     return requestsByGroup
       .map(
