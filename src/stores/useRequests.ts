@@ -16,7 +16,7 @@ type RefreshOptions = ApiSettings & { clear?: boolean };
 type RequestsStore = RequestsResponse & {
   _currentRefreshId: number;
   refresh: (RefreshOptions: RefreshOptions) => Promise<void>;
-  search: (term: string) => void;
+  search: (term: string | null) => void;
 };
 
 export const useRequests = create<RequestsStore>((set, get) => ({
@@ -26,7 +26,7 @@ export const useRequests = create<RequestsStore>((set, get) => ({
   allRequests: null,
   mergeRequests: null,
   searchTerm: null,
-  search: (term: string) => {
+  search: (term: string | null) => {
     if (!term) {
       set((state) => ({
         searchTerm: null,
@@ -55,14 +55,15 @@ export const useRequests = create<RequestsStore>((set, get) => ({
           : { refreshing: true, _currentRefreshId: currentRefreshId }
       );
 
-      const { mergeRequests: allRequests, errors } =
-        await fetchRequests(refreshOptions);
+      const { mergeRequests: allRequests, errors } = await fetchRequests(
+        refreshOptions
+      );
 
       // Abort if another refresh has started
       if (currentRefreshId !== get()._currentRefreshId) return;
 
       set({ refreshing: false, allRequests, errors });
-      get().search("");
+      get().search(get().searchTerm);
     } catch (error) {
       logger.error("Error while fetching data:", error);
       set({
