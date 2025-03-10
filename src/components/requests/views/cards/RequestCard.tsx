@@ -17,7 +17,7 @@ export const MergeRequestCard = ({
     href={mr.web_url}
     className="transition-all hover:scale-105 w-full sm:w-96"
   >
-    <div className="card shadow-xs border-1 border-base-300 bg-base-200">
+    <div className="card shadow-xs border-1 border-base-300 bg-base-200 animate-pop">
       <div className="card-body p-4">
         <div className="flex justify-between">
           <div className="flex flex-wrap gap-2">
