@@ -1,6 +1,6 @@
-import { groupBy } from "../group-by/group-by";
-import { getHumanRelativeDate } from "../time/time";
-import { MergeRequest } from "../types";
+import { groupBy } from "@/shared/group-by/group-by";
+import { getHumanRelativeDate } from "@/shared/time/human-time/human-time";
+import { MergeRequest } from "@/shared/types";
 
 export const requestsGroupToStringFactory =
   (

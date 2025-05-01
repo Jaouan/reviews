@@ -13,11 +13,11 @@ import { MergeRequest } from "@/shared";
 import {
   requestsGroupToStringFactory,
   requestsToString,
-} from "@/shared/requests/requests-to-str";
+} from "@/shared/requests/clipboard/requests-to-str";
 import {
   requestsGroupToHtmlFactory,
   requestsToHtml,
-} from "@/shared/requests/requests-to-html";
+} from "@/shared/requests/clipboard/requests-to-html";
 
 type ViewDefinition = {
   label: string;

@@ -1,7 +1,7 @@
 import { ViewSelector } from "./ViewSelector";
 import { PropsWithClassName } from "@/shared/react/PropsWithClassName";
 import { twMerge } from "tailwind-merge";
-import { ViewId, viewsDefinitions } from "../views/views";
+import { ViewId, viewsDefinitions } from "../views/views-definitions";
 
 export type ViewsSelectorProps = {
   currentView?: ViewId;

@@ -1,6 +1,6 @@
 import { Navigate, useParams } from "react-router";
 import { useRequests } from "@/stores";
-import { viewsDefinitions } from "@/components/requests/views/Views";
+import { viewsDefinitions } from "@/components/requests/views/views-definitions";
 import { PageMessage } from "@/components/layout/PageMessage";
 import { LuPartyPopper } from "react-icons/lu";
 

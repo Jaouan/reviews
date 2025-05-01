@@ -3,7 +3,7 @@ import {
   requestsGroupToStringFactory,
   requestsToString,
 } from "./requests-to-str";
-import { MergeRequest } from "../types";
+import { MergeRequest } from "../../types";
 
 const mockRequests = [
   {

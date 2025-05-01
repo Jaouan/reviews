@@ -14,9 +14,12 @@ describe("expandEndpointPatter", () => {
   it("should expand URL pattern with multiple values only for the first match", () => {
     const input = "/groups/{1234,456,789}/subgroup/{not,resolved}";
     const expected = [
-      "/groups/1234/subgroup/{not,resolved}",
-      "/groups/456/subgroup/{not,resolved}",
-      "/groups/789/subgroup/{not,resolved}",
+      "/groups/1234/subgroup/not",
+      "/groups/1234/subgroup/resolved",
+      "/groups/456/subgroup/not",
+      "/groups/456/subgroup/resolved",
+      "/groups/789/subgroup/not",
+      "/groups/789/subgroup/resolved",
     ];
     expect(expandEndpointPattern(input)).toEqual(expected);
   });

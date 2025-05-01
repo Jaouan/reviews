@@ -5,7 +5,7 @@ import {
   isLessThanHours,
   logger,
 } from "@/shared";
-import { extractIssueRef } from "@/shared/issue/extract-issue";
+import { extractIssueRef } from "@/shared/requests/issue/extract-issue";
 
 export const findToken = (endpoint: string, tokens: Record<string, string>) =>
   Object.entries(tokens).find(([needle]) => endpoint.startsWith(needle))?.[1];

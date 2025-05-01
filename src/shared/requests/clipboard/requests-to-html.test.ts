@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { requestsGroupToHtmlFactory, requestsToHtml } from "./requests-to-html";
-import { MergeRequest } from "../types";
+import { MergeRequest } from "../../types";
 
 const mockRequests = [
   {

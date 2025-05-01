@@ -1,5 +1,5 @@
 import { LuClipboardCopy } from "react-icons/lu";
-import { ViewId, viewsDefinitions } from "../views/Views";
+import { ViewId, viewsDefinitions } from "../views/views-definitions";
 import { useRequests } from "@/stores";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";

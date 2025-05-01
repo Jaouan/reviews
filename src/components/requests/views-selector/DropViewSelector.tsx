@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { ViewId, viewsDefinitions } from "../views/Views";
+import { ViewId, viewsDefinitions } from "../views/views-definitions";
 import { LinkWithQuery } from "@/components/router/LinkWithQuery";
 import { PropsWithClassName } from "@/shared/react/PropsWithClassName";
 

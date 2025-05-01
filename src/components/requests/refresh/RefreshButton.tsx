@@ -1,4 +1,4 @@
-import { getReadableDuration } from "@/shared/duration/duration";
+import { getReadableDuration } from "@/shared/time/duration/duration";
 import { useRequests, useSettings } from "@/stores";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdRefresh } from "react-icons/md";

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { isLessThanHours, getDaysAgo } from "./time";
+import { isLessThanHours, getDaysAgo } from "./human-time";
 
 const mockDate = (isoString: string) => {
   vi.setSystemTime(new Date(isoString));
