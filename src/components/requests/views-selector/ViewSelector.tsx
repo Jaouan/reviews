@@ -1,7 +1,7 @@
 import { LinkWithQuery } from "@/components/router/LinkWithQuery";
 import { JSX } from "react";
 import { twMerge } from "tailwind-merge";
-import { ViewId } from "../views/Views";
+import { ViewId } from "../views/views";
 
 export type ViewSelectorProps = {
   currentView?: ViewId;
@@ -16,10 +16,10 @@ export const ViewSelector = ({
   icon,
 }: ViewSelectorProps) => (
   <LinkWithQuery to={`/${itemView}`}>
-    <div className="tooltip tooltip-bottom" data-tip={label}>
+    <div className="join-item tooltip tooltip-bottom" data-tip={label}>
       <button
         className={twMerge(
-          "btn btn-sm join-item",
+          "btn btn-sm rounded-[inherit]",
           currentView === itemView && "btn-active"
         )}
       >
