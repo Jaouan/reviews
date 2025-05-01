@@ -1,9 +1,9 @@
 import lucene from "lucene-query-parser";
 import { logger } from "../logger/logger";
 
-const NUMBER_OPERATOR = /^(?<operator>[<>]=?)(?<term>.+)$/;
+const NUMBER_OPERATOR = /^!?(?<operator>[<>]=?)(?<term>.+)$/;
 const EXACT_STRING =
-  /(^"(?<exactTermDouble>.*)"$)|(^'(?<exactTermSimple>.*)'$)/;
+  /^!?(("(?<exactTermDouble>.*)")|('(?<exactTermSimple>.*)'))$/;
 
 export const luceneSearch = <T extends Record<string, unknown>>(
   query: string,
@@ -28,8 +28,12 @@ export const luceneSearch = <T extends Record<string, unknown>>(
       const field =
         implicitField && rawField === "<implicit>" ? implicitField : rawField;
       if (!field || !(field in obj)) return false;
+
+      const not = rawTerm?.startsWith("!") ?? false;
+      const termWithoutNot = not ? rawTerm?.slice(1) : rawTerm;
+
       const { term, operator } = NUMBER_OPERATOR.exec(rawTerm!)?.groups ?? {
-        term: rawTerm ?? "",
+        term: termWithoutNot ?? "",
         operator: ":",
       };
 
@@ -38,11 +42,19 @@ export const luceneSearch = <T extends Record<string, unknown>>(
         const { exactTermDouble, exactTermSimple } =
           EXACT_STRING.exec(term)?.groups ?? {};
         const exactTerm = exactTermDouble ?? exactTermSimple;
-        if (exactTerm) return obj[field]?.toString() === exactTerm;
-        return !!obj[field]
-          ?.toString()
-          .toLowerCase()
+
+        const valueString = obj[field]?.toString();
+
+        if (exactTerm)
+          return not
+            ? valueString?.toString() !== exactTerm
+            : valueString?.toString() === exactTerm;
+
+        const contains = !!valueString
+          ?.toLowerCase()
           .includes(term.toLowerCase());
+
+        return not ? !contains : contains;
       }
 
       // Handle numbers
@@ -56,8 +68,6 @@ export const luceneSearch = <T extends Record<string, unknown>>(
           return fieldValueNumber < +term;
         case "<=":
           return fieldValueNumber <= +term;
-        case ":":
-          return fieldValueNumber == +term;
         default:
           return false;
       }

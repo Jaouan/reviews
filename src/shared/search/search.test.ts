@@ -13,9 +13,35 @@ describe("luceneFilter", () => {
     expect(result).toEqual([{ name: "Alice", age: 25 }]);
   });
 
+  it("filters implicitly not", () => {
+    const result = luceneSearch("!'Alice'", data, "name");
+    expect(result).toEqual([
+      { name: "Bob", age: 30 },
+      { name: "Charlie", age: 22 },
+    ]);
+  });
+
   it("filters exactly", () => {
     const result = luceneSearch("'Alice'", data, "name");
     expect(result).toEqual([{ name: "Alice", age: 25 }]);
+  });
+
+  it("filters exactly not", () => {
+    const result = luceneSearch("!'Alice'", data, "name");
+    expect(result).toEqual([
+      { name: "Bob", age: 30 },
+      { name: "Charlie", age: 22 },
+    ]);
+  });
+
+  it("filters implicitly and exactly not", () => {
+    const result = luceneSearch("a AND !'Alice'", data, "name");
+    expect(result).toEqual([{ name: "Charlie", age: 22 }]);
+  });
+
+  it("filters implicitly and implicitly not", () => {
+    const result = luceneSearch("a AND !alice", data, "name");
+    expect(result).toEqual([{ name: "Charlie", age: 22 }]);
   });
 
   it("filters objects by a numeric field with '>' operator", () => {
@@ -52,6 +78,15 @@ describe("luceneFilter", () => {
   it("returns an empty array if no elements match", () => {
     const result = luceneSearch("age:>50", data);
     expect(result).toEqual([]);
+  });
+
+  it("returns an empty array if elements not equals", () => {
+    const result = luceneSearch("age:!50", data);
+    expect(result).toEqual([
+      { name: "Alice", age: 25 },
+      { name: "Bob", age: 30 },
+      { name: "Charlie", age: 22 },
+    ]);
   });
 
   it("ignores non-existent fields", () => {

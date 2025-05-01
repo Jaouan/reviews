@@ -22,7 +22,7 @@ const searchFields = [
   "blocking_discussions_resolved",
   "has_conflicts",
 ];
-const operators = [":", ":<", ":<=", ":>", ":>="];
+const operators = [":", ":!", ":<", ":<=", ":>", ":>="];
 
 export const SearchField = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -90,6 +90,10 @@ export const SearchField = () => {
               <div>
                 <span className="opacity-60">Comparison:</span>{" "}
                 {operators.join(", ")}
+              </div>
+              <div>
+                <span className="opacity-60">Value with quotes:</span> exact
+                match
               </div>
             </div>
           </div>
