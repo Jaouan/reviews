@@ -1,5 +1,5 @@
 import { ViewSelector } from "./ViewSelector";
-import { PropsWithClassName } from "@/shared/PropsWithClassName";
+import { PropsWithClassName } from "@/shared/react/PropsWithClassName";
 import { twMerge } from "tailwind-merge";
 import { ViewId, viewsDefinitions } from "../views/Views";
 

@@ -1,5 +1,5 @@
 import { useEvent } from "@/hooks/useEvent";
-import { isMac, isMobile } from "@/shared/is-os";
+import { isMac, isMobile } from "@/shared/os/is-os";
 import { useRequests } from "@/stores";
 import { useEffect, useRef, useState } from "react";
 import { IoIosHelpCircleOutline } from "react-icons/io";

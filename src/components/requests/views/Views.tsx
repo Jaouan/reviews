@@ -14,6 +14,10 @@ import {
   requestsGroupToStringFactory,
   requestsToString,
 } from "@/shared/requests/requests-to-str";
+import {
+  requestsGroupToHtmlFactory,
+  requestsToHtml,
+} from "@/shared/requests/requests-to-html";
 
 type ViewDefinition = {
   label: string;
@@ -21,6 +25,7 @@ type ViewDefinition = {
   element: () => JSX.Element;
   skeleton: () => JSX.Element;
   copyString: (mergeRequests: MergeRequest[]) => string;
+  copyHtml: (mergeRequests: MergeRequest[]) => string;
 };
 
 export const viewsDefinitions: Record<string, ViewDefinition> = {
@@ -30,6 +35,7 @@ export const viewsDefinitions: Record<string, ViewDefinition> = {
     element: () => <RequestsCardsGroupByLayout groupByKey="project" />,
     skeleton: () => <RequestsCardsGroupByLayoutSkeleton />,
     copyString: requestsGroupToStringFactory("project"),
+    copyHtml: requestsGroupToHtmlFactory("project"),
   },
   "by-issue": {
     label: "By issue",
@@ -39,6 +45,7 @@ export const viewsDefinitions: Record<string, ViewDefinition> = {
     ),
     skeleton: () => <RequestsCardsGroupByLayoutSkeleton />,
     copyString: requestsGroupToStringFactory("issue"),
+    copyHtml: requestsGroupToHtmlFactory("issue"),
   },
   "by-author": {
     label: "By author",
@@ -52,6 +59,7 @@ export const viewsDefinitions: Record<string, ViewDefinition> = {
     ),
     skeleton: () => <RequestsCardsGroupByLayoutSkeleton />,
     copyString: requestsGroupToStringFactory("author"),
+    copyHtml: requestsGroupToHtmlFactory("author"),
   },
   compact: {
     label: "Compact",
@@ -59,6 +67,7 @@ export const viewsDefinitions: Record<string, ViewDefinition> = {
     element: () => <RequestsCardsGroupByLayout withProjectName />,
     skeleton: () => <RequestsCardsGroupByLayoutSkeleton compact />,
     copyString: requestsToString,
+    copyHtml: requestsToHtml,
   },
   list: {
     label: "List",
@@ -66,6 +75,7 @@ export const viewsDefinitions: Record<string, ViewDefinition> = {
     element: () => <RequestsListView />,
     skeleton: () => <RequestsListViewSkeleton />,
     copyString: requestsToString,
+    copyHtml: requestsToHtml,
   },
 };
 

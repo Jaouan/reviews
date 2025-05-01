@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import { ViewId, viewsDefinitions } from "../views/Views";
 import { LinkWithQuery } from "@/components/router/LinkWithQuery";
-import { PropsWithClassName } from "@/shared/PropsWithClassName";
+import { PropsWithClassName } from "@/shared/react/PropsWithClassName";
 
 export type DropViewSelectorProps = {
   currentView?: ViewId;

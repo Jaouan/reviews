@@ -1,5 +1,5 @@
 import lucene from "lucene-query-parser";
-import { logger } from "../logger";
+import { logger } from "../logger/logger";
 
 const NUMBER_OPERATOR = /^(?<operator>[<>]=?)(?<term>.+)$/;
 const EXACT_STRING =

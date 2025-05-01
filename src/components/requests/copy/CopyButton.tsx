@@ -15,8 +15,18 @@ export const CopyButton = ({ currentView }: CopyButtonProps) => {
     if (!mergeRequests?.length) return;
     const view =
       viewsDefinitions[currentView ?? "compact"] ?? viewsDefinitions.compact;
-    console.log(view.copyString(mergeRequests));
-    navigator.clipboard.writeText(view.copyString(mergeRequests));
+
+    navigator.clipboard.write([
+      new ClipboardItem({
+        "text/plain": new Blob([view.copyString(mergeRequests)], {
+          type: "text/plain;charset=utf-8",
+        }),
+        "text/html": new Blob([view.copyHtml(mergeRequests)], {
+          type: "text/html;charset=utf-8",
+        }),
+      }),
+    ]);
+
     setCopied(true);
   };
 

@@ -1,5 +1,5 @@
 import { getHumanRelativeDate, MergeRequest } from "@/shared";
-import { PropsWithClassName } from "@/shared/PropsWithClassName";
+import { PropsWithClassName } from "@/shared/react/PropsWithClassName";
 import { twMerge } from "tailwind-merge";
 
 const getBadgeClass = (diffDays: number): string => {
